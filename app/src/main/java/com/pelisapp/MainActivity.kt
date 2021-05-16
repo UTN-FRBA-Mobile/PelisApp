@@ -1,44 +1,34 @@
 package com.pelisapp
 
+import RecyclerAdapter
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import com.pelisapp.databinding.ActivityMainBinding
-import com.pelisapp.ui.dashboard.DashboardFragment
-import com.pelisapp.ui.login.LoginFragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.pelisapp.core.Movie
 
-class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionListener {
-    private lateinit var loginFragment: Fragment
-    private lateinit var dashboardFragment: Fragment
-
-    lateinit var binding: ActivityMainBinding
+class MainActivity : AppCompatActivity() {
+    lateinit var moviesRecyclerView : RecyclerView
+    val moviesAdapter : RecyclerAdapter = RecyclerAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-//        setSupportActionBar(binding.toolbar)
-
-        if (savedInstanceState == null) {
-            loginFragment = LoginFragment()
-
-            supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, loginFragment)
-                    .commitNow()
-        }
+        setContentView(R.layout.activity_main)
+        setUpRecyclerView()
     }
 
-    override fun onLogin(username: String, password: String) {
-        dashboardFragment = DashboardFragment()
-
-        supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-
-        supportFragmentManager.beginTransaction().remove(loginFragment).add(R.id.container, dashboardFragment).commitNow()
+    fun setUpRecyclerView(){
+        moviesRecyclerView = findViewById(R.id.rvPelis) as RecyclerView
+        moviesRecyclerView.setHasFixedSize(true)
+        moviesRecyclerView.layoutManager = LinearLayoutManager(this)
+        moviesAdapter.RecyclerAdapter(getPelis(), this)
+        moviesRecyclerView.adapter = moviesAdapter
     }
 
-    override fun onSignUp() {
-        TODO("Not yet implemented")
+    fun getPelis(): MutableList<Movie>{
+        var movies:MutableList<Movie> = ArrayList()
+        movies.add(Movie("Spiderman", "https://cursokotlin.com/wp-content/uploads/2017/07/spiderman.jpg", "4.5", "ESP/ENG"))
+        movies.add(Movie("Daredevil", "https://cursokotlin.com/wp-content/uploads/2017/07/daredevil.jpg", "5.0", "ESP/ENG/JPN"))
+        return movies
     }
-
 }
