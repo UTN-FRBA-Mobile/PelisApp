@@ -5,23 +5,20 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContentProviderCompat
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import com.pelisapp.R
 import com.pelisapp.core.Movie
 import com.squareup.picasso.Picasso
 
-class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+class MoviesAdapter(private val movies: List<Movie>) : RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
 
-    var movies: MutableList<Movie>  = ArrayList()
     lateinit var context: Context
-
-    fun RecyclerAdapter(movies : MutableList<Movie>, context: Context){
-        this.movies = movies
-        this.context = context
-    }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = movies.get(position)
+        context = holder.poster.context //FIXME: esto estara ok?
         holder.bind(item, context)
     }
 
