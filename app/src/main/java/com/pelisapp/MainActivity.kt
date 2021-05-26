@@ -1,6 +1,8 @@
 package com.pelisapp
 
 import android.os.Bundle
+import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -22,7 +24,6 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionLis
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Initialize Firebase Auth
         auth = Firebase.auth
 
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -39,20 +40,20 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionLis
     }
 
     override fun onLogin(username: String, password: String) {
-        auth.signInWithEmailAndPassword(username, password)
+        var userWithEmail = username.plus("@mail.com")
+
+        auth.signInWithEmailAndPassword(userWithEmail, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val user = auth.currentUser
-
-                    println("Success!")
-
                     dashboardFragment = DashboardFragment()
 
                     supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
 
                     supportFragmentManager.beginTransaction().remove(loginFragment).add(R.id.container, dashboardFragment).commitNow()
                 } else {
-                    println("Failed")
+                    val incorrectUserPasswordTextView = findViewById<TextView>(R.id.incorrect_user_password)
+
+                    incorrectUserPasswordTextView.visibility = View.VISIBLE
                 }
             }
     }
