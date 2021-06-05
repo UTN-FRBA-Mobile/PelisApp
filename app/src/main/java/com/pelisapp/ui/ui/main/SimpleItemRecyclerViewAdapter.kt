@@ -38,7 +38,16 @@ class SimpleItemRecyclerViewAdapter(private val values: List<DummyContent.Movie>
             tag = item
             setOnClickListener(onClickListener)
         }
+
+        holder.favoriteada.setOnClickListener {
+            marcarFavoriteada(holder.favoriteada, item)
+        }
+
         holder.bind(item)
+    }
+
+    private fun marcarFavoriteada(estrella: ImageView, pelicula: DummyContent.Movie) {
+        estrella.setImageResource(R.drawable.icons8_star_48_on)
     }
 
     override fun getItemCount() = values.size
@@ -47,6 +56,7 @@ class SimpleItemRecyclerViewAdapter(private val values: List<DummyContent.Movie>
         val title = view.findViewById(R.id.tvTitle) as TextView
         val rating = view.findViewById(R.id.tvIMDBRate) as TextView
         val poster = view.findViewById(R.id.ivPoster) as ImageView
+        val favoriteada = view.findViewById(R.id.ivIsFavourite) as ImageView
 
         fun bind(movie: DummyContent.Movie){
             title.text = movie.title

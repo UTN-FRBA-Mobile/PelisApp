@@ -43,7 +43,7 @@
             android:id="@+id/ivIsFavourite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@android:drawable/star_off"/>
+            app:srcCompat="@drawable/icons8_star_48_off"/>
 
         <ImageView
             android:id="@+id/ivWatched"
