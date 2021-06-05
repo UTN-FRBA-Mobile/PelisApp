@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.pelisapp.R
 import com.pelisapp.core.DummyContent
+import com.pelisapp.core.Movie
 
 /**
  * A fragment representing a single Item detail screen.
@@ -21,7 +22,7 @@ class ItemDetailFragment : Fragment() {
     /**
      * The dummy content this fragment is presenting.
      */
-    private var item: DummyContent.Movie? = null
+    private var item: Movie? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
