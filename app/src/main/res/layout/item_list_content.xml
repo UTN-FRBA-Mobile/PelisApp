@@ -51,6 +51,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10sp"
-            app:srcCompat="@android:drawable/checkbox_off_background" />
+            app:srcCompat="@drawable/ic_unchecked_checkbox_48" />
     </LinearLayout>
 </RelativeLayout>

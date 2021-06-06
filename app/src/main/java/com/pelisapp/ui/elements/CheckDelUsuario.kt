@@ -1,28 +1,31 @@
-package com.pelisapp.ui
+package com.pelisapp.ui.elements
 
 import android.widget.ImageView
 import com.pelisapp.core.Movie
 
-class BotonFavorita(val view: ImageView, val icono_on: Int, val icono_off: Int) {
+abstract class CheckDelUsuario(val view: ImageView, val icono_on: Int, val icono_off: Int) {
     lateinit var pelicula : Movie
 
     init {
         view.setOnClickListener {
-            favoritear(it as ImageView)
+            onClick(it as ImageView)
         }
     }
 
-    fun favoritear(v: ImageView) {
-        pelicula.cambiarEstadoFavoriteado()
+    fun onClick(v: ImageView) {
+        this.cambiarEstadoPelicula()
         this.mostrarPara(pelicula)
     }
 
     fun mostrarPara(pelicula: Movie) {
         this.pelicula = pelicula
-        if (this.pelicula.favorita) {
+        if (estadoActualPelicula()) {
             this.view.setImageResource(this.icono_on)
         } else {
             this.view.setImageResource(this.icono_off)
         }
     }
+
+    abstract fun cambiarEstadoPelicula()
+    abstract fun estadoActualPelicula() : Boolean
 }

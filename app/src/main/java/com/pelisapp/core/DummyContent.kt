@@ -20,7 +20,8 @@ object DummyContent {
             "5.0",
             "ESP/ENG/JPN",
             "Ciego desde que era joven, Matt Murdock lucha contra la injusticia de día como abogado y por la noche como Daredevil en Nueva York.",
-                true
+                true,
+            false
         )
 
     private fun spiderman() =
@@ -31,7 +32,8 @@ object DummyContent {
             "4.5",
             "ESP/ENG",
             "Spider-Man es un superhéroe ficticio creado por los escritores y editores Stan Lee y Steve Ditko. Apareció por primera vez en el cómic de antología Amazing Fantasy # 15, en la Edad de Plata de los cómics.",
-                false
+                false,
+            true
         )
 
     private fun addItem(item: Movie) {

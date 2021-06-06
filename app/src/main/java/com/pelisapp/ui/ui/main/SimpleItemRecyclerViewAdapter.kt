@@ -9,7 +9,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.pelisapp.R
 import com.pelisapp.core.Movie
-import com.pelisapp.ui.BotonFavorita
+import com.pelisapp.ui.elements.BotonFavorita
+import com.pelisapp.ui.elements.CheckboxVista
 import com.squareup.picasso.Picasso
 
 class SimpleItemRecyclerViewAdapter(private val values: List<Movie>) :
@@ -50,11 +51,13 @@ class SimpleItemRecyclerViewAdapter(private val values: List<Movie>) :
         val rating = view.findViewById(R.id.tvIMDBRate) as TextView
         val poster = view.findViewById(R.id.ivPoster) as ImageView
         val favoriteada = BotonFavorita(view.findViewById(R.id.ivIsFavourite) as ImageView, R.drawable.icons8_star_48_on, R.drawable.icons8_star_48_off)
+        val vista = CheckboxVista(view.findViewById(R.id.ivWatched) as ImageView, R.drawable.ic_checked_checkbox_48, R.drawable.ic_unchecked_checkbox_48)
 
         fun bind(pelicula: Movie){
             title.text = pelicula.title
             rating.text = pelicula.rating
             favoriteada.mostrarPara(pelicula)
+            vista.mostrarPara(pelicula)
             poster.loadUrl(pelicula.poster)
         }
 
