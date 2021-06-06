@@ -6,10 +6,13 @@ import com.google.android.material.appbar.CollapsingToolbarLayout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.pelisapp.R
 import com.pelisapp.core.DummyContent
 import com.pelisapp.core.Movie
+import com.pelisapp.ui.elements.BotonFavorita
 
 /**
  * A fragment representing a single Item detail screen.
@@ -36,6 +39,9 @@ class ItemDetailFragment : Fragment() {
                 activity?.findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout)?.title = item?.title
             }
         }
+
+        val fabFavoriteada = BotonFavorita(activity!!.findViewById(R.id.fab), R.drawable.icons8_star_48_on, R.drawable.icons8_star_48_off) // FIXME usar binding
+        fabFavoriteada.mostrarPara(item!!) // FIXME ojo con el !!
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

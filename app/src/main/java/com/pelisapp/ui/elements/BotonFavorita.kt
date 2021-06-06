@@ -1,5 +1,6 @@
 package com.pelisapp.ui.elements
 
+import android.view.View
 import android.widget.ImageView
 import com.pelisapp.core.Movie
 
