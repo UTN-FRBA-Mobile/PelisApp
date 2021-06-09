@@ -6,13 +6,12 @@ import com.google.android.material.appbar.CollapsingToolbarLayout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.pelisapp.R
 import com.pelisapp.core.DummyContent
 import com.pelisapp.core.Movie
 import com.pelisapp.ui.elements.BotonFavorita
+import com.pelisapp.ui.elements.CheckboxVista
 
 /**
  * A fragment representing a single Item detail screen.
@@ -40,8 +39,11 @@ class ItemDetailFragment : Fragment() {
             }
         }
 
-        val fabFavoriteada = BotonFavorita(activity!!.findViewById(R.id.fab), R.drawable.icons8_star_48_on, R.drawable.icons8_star_48_off) // FIXME usar binding
+        val fabFavoriteada = BotonFavorita(activity!!.findViewById(R.id.fab_favoriteada), R.drawable.icons8_star_48_on, R.drawable.icons8_star_48_off) // FIXME usar binding
         fabFavoriteada.mostrarPara(item!!) // FIXME ojo con el !!
+
+        val fabVista = CheckboxVista(activity!!.findViewById(R.id.fab_vista), R.drawable.ic_checked_checkbox_48, R.drawable.ic_unchecked_checkbox_48) // FIXME usar binding
+        fabVista.mostrarPara(item!!) // FIXME ojo con el !!
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

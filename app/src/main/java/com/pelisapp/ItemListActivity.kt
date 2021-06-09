@@ -27,7 +27,7 @@ class ItemListActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         toolbar.title = title
 
-        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
+        findViewById<FloatingActionButton>(R.id.fab_favoriteada).setOnClickListener { view ->
             Snackbar.make(view, "Todavia no king", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }

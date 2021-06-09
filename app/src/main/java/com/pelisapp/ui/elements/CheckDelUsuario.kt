@@ -8,11 +8,11 @@ abstract class CheckDelUsuario(val view: ImageView, val icono_on: Int, val icono
 
     init {
         view.setOnClickListener {
-            onClick(it as ImageView)
+            onClick()
         }
     }
 
-    fun onClick(v: ImageView) {
+    fun onClick() {
         this.cambiarEstadoPelicula()
         this.mostrarPara(pelicula)
     }
