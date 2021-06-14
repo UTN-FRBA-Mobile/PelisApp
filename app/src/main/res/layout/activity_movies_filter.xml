@@ -20,7 +20,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Quiero ver:"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:paddingTop="15sp" />
 
     <CheckBox
         android:id="@+id/unseen_movie_checkbox"
@@ -28,11 +29,27 @@
         android:layout_height="wrap_content"
         android:text="Una que no vio nadie" />
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Género:"
+        android:textSize="18sp"
+        android:paddingTop="15sp" />
+
     <Spinner
         android:id="@+id/genre_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:entries="@array/genres" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Director:"
+        android:textSize="18sp"
+        android:paddingTop="15sp" />
 
     <Spinner
         android:id="@+id/director_spinner"
