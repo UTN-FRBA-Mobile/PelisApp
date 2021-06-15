@@ -10,12 +10,12 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.pelisapp.databinding.ActivityMainBinding
-import com.pelisapp.ui.dashboard.DashboardFragment
+import com.pelisapp.ui.dashboard.HomeFragment
 import com.pelisapp.ui.login.LoginFragment
 
 class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionListener {
     private lateinit var loginFragment: Fragment
-    private lateinit var dashboardFragment: Fragment
+    private lateinit var homeFragment: Fragment
 
     lateinit var binding: ActivityMainBinding
 
@@ -45,11 +45,11 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionLis
         auth.signInWithEmailAndPassword(userWithEmail, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    dashboardFragment = DashboardFragment()
+                    homeFragment = HomeFragment()
 
                     supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
 
-                    supportFragmentManager.beginTransaction().remove(loginFragment).add(R.id.container, dashboardFragment).commitNow()
+                    supportFragmentManager.beginTransaction().remove(loginFragment).add(R.id.container, homeFragment).commitNow()
                 } else {
                     val incorrectUserPasswordTextView = findViewById<TextView>(R.id.incorrect_user_password)
 
