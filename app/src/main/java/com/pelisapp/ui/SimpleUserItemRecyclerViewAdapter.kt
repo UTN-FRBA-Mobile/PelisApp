@@ -9,14 +9,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.pelisapp.R
 import com.pelisapp.UserGroupDetailActivity
-import com.pelisapp.UserGroupsActivity
 import com.pelisapp.core.User
 import com.pelisapp.core.UserGroup
 import com.pelisapp.databinding.ViewListitemMovieBinding
 import com.squareup.picasso.Picasso
 
-class SimpleUserGroupItemRecyclerViewAdapter(private val values: List<UserGroup>) :
-        RecyclerView.Adapter<SimpleUserGroupItemRecyclerViewAdapter.ViewHolder>() {
+class SimpleUserItemRecyclerViewAdapter(private val values: List<User>) :
+    RecyclerView.Adapter<SimpleUserItemRecyclerViewAdapter.ViewHolder>() {
 
     private var _binding: ViewListitemMovieBinding? = null
     // This property is only valid between onCreateView and
@@ -27,16 +26,15 @@ class SimpleUserGroupItemRecyclerViewAdapter(private val values: List<UserGroup>
 
     init {
         onClickListener = View.OnClickListener { v ->
-            val item = v.tag as UserGroup
+            val item = v.tag as User
             val intent = Intent(v.context, UserGroupDetailActivity::class.java)
-            intent.putExtra("groupId", item.id)
             v.context.startActivity(intent)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.usergroup_item, parent, false)
+            .inflate(R.layout.user_item, parent, false)
         return ViewHolder(view)
     }
 
@@ -52,14 +50,12 @@ class SimpleUserGroupItemRecyclerViewAdapter(private val values: List<UserGroup>
     override fun getItemCount() = values.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val groupNameTitle = view.findViewById(R.id.groupName) as TextView
-        val groupParticipantsNames = view.findViewById(R.id.groupParticipantsNames) as TextView
-        val groupImage = view.findViewById(R.id.groupImage) as ImageView
+        val userName = view.findViewById(R.id.userName) as TextView
+        val userAvatar = view.findViewById(R.id.userAvatar) as ImageView
 
-        fun bind(userGroup: UserGroup){
-            groupNameTitle.text = userGroup.name
-            groupParticipantsNames.text = userGroup.participants.map { participant -> participant.name }.joinToString { c -> c }
-            groupImage.loadUrl(userGroup.imageUrl)
+        fun bind(user: User){
+            userName.text = user.name
+            userAvatar.loadUrl(user.avatarUrl)
         }
 
         private fun ImageView.loadUrl(url: String) {
