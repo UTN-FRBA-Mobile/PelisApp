@@ -37,7 +37,7 @@ class HomeFragment : Fragment(), View.OnClickListener  {
                 //TODO: flujo amigos
             }
             R.id.gruposButton->{
-                //TODO: flujo grupos
+                mainActivity.setGroupsView()
             }
             R.id.nuevoGrupoButton->{
                 //TODO: flujo nuevo grupo
