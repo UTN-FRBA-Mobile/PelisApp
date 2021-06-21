@@ -1,4 +1,8 @@
 package com.pelisapp.core
 
-class User(val name: String? = null) : Entity() {
+class User(val name: String? = null) {
+    override fun equals(other: Any?): Boolean {
+        other as User
+        return this.name.equals(other.name)
+    }
 }

@@ -39,7 +39,9 @@ class UserGroupsFragment : Fragment() {
         UserGroupApi().getAllGroupsFromFirebase(object: UserGroupsListener {
             override fun onUserGroupsReceived(userGroups: List<UserGroup>?) {
 
-                val viewAdapter = SimpleUserGroupItemRecyclerViewAdapter(userGroups)
+                var groupsByUser = userGroups!!.filter { group -> group.users!!.contains(mockUser) }
+
+                val viewAdapter = SimpleUserGroupItemRecyclerViewAdapter(groupsByUser)
 
                 recyclerView = binding.userGroupListFrameLayout.findViewById(R.id.usergroup_items_list)
                 recyclerView.apply{
