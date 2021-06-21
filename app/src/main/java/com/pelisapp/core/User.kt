@@ -1,6 +1,4 @@
 package com.pelisapp.core
 
-import com.fasterxml.jackson.annotation.JsonProperty
-
-class User(id: Int, val name: String) : Entity(id) {
+class User(val name: String? = null) : Entity() {
 }

@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.pelisapp.R
 import com.pelisapp.core.User
+import com.pelisapp.core.UserGroup
 import com.pelisapp.core.UserGroupApi
+import com.pelisapp.core.UserGroupsListener
 import com.pelisapp.databinding.FragmentDashboardBinding
 import com.pelisapp.databinding.FragmentUserGroupsBinding
 import com.pelisapp.ui.SimpleUserGroupItemRecyclerViewAdapter
@@ -30,17 +32,21 @@ class UserGroupsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val mockUser = User(1, "Martin")
-        val userGroups = UserGroupApi().getGroupsByUser(mockUser)
-
         val viewManager = LinearLayoutManager(this.context)
 
-        val viewAdapter = SimpleUserGroupItemRecyclerViewAdapter(userGroups)
+        val mockUser = User("Martin")
 
-        recyclerView = binding.userGroupListFrameLayout.findViewById(R.id.usergroup_items_list)
-        recyclerView.apply{
-            layoutManager = viewManager
-            adapter = viewAdapter
-        }
+        UserGroupApi().getAllGroupsFromFirebase(object: UserGroupsListener {
+            override fun onUserGroupsReceived(userGroups: List<UserGroup>?) {
+
+                val viewAdapter = SimpleUserGroupItemRecyclerViewAdapter(userGroups)
+
+                recyclerView = binding.userGroupListFrameLayout.findViewById(R.id.usergroup_items_list)
+                recyclerView.apply{
+                    layoutManager = viewManager
+                    adapter = viewAdapter
+                }
+            }
+        })
     }
 }
