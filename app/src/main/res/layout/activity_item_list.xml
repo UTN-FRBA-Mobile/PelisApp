@@ -19,6 +19,15 @@
             android:layout_height="?attr/actionBarSize"
             app:popupTheme="@style/Theme.PelisApp.PopupOverlay" />
 
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/busqueda"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:defaultQueryHint="@string/hint_busqueda"
+            app:iconifiedByDefault="false">
+
+        </androidx.appcompat.widget.SearchView>
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout
@@ -29,13 +38,5 @@
 
         <include layout="@layout/item_list" />
     </FrameLayout>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_favoriteada"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_menu_search" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

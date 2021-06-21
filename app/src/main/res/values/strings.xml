@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">PelisApp</string>
     <string name="title_item_detail">Item Detail</string>
+    <string name="hint_busqueda">Buscar pelis y series...</string>
 </resources>

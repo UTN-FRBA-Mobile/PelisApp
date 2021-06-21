@@ -13,10 +13,11 @@ import com.pelisapp.ui.elements.BotonFavorita
 import com.pelisapp.ui.elements.CheckboxVista
 import com.squareup.picasso.Picasso
 
-class SimpleItemRecyclerViewAdapter(private val values: List<Movie>) :
+class SimpleItemRecyclerViewAdapter(private val originalItems: List<Movie>) :
         RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>() {
 
     private val onClickListener: View.OnClickListener
+    private var mutableItems : MutableList<Movie> = originalItems.toMutableList()
 
     init {
         onClickListener = View.OnClickListener { v ->
@@ -26,6 +27,7 @@ class SimpleItemRecyclerViewAdapter(private val values: List<Movie>) :
             }
             v.context.startActivity(intent)
         }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -35,7 +37,7 @@ class SimpleItemRecyclerViewAdapter(private val values: List<Movie>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = values[position]
+        val item = mutableItems[position]
         with(holder.itemView) {
             tag = item
             setOnClickListener(onClickListener)
@@ -44,7 +46,20 @@ class SimpleItemRecyclerViewAdapter(private val values: List<Movie>) :
         holder.bind(item)
     }
 
-    override fun getItemCount() = values.size
+    fun filter(search: String) {
+        if(search.isEmpty()) {
+            mutableItems.clear()
+            mutableItems.addAll(originalItems)
+        } else {
+            var filtered : List<Movie> = originalItems.filter { item -> item.title.toLowerCase().contains(search.toLowerCase()) }
+            mutableItems.clear()
+            mutableItems.addAll(filtered)
+        }
+
+        notifyDataSetChanged()
+    }
+
+    override fun getItemCount() = mutableItems.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title = view.findViewById(R.id.tvTitle) as TextView
