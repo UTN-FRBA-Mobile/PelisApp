@@ -13,17 +13,8 @@ import com.pelisapp.core.Movie
 import com.pelisapp.ui.elements.BotonFavorita
 import com.pelisapp.ui.elements.CheckboxVista
 
-/**
- * A fragment representing a single Item detail screen.
- * This fragment is either contained in a [ItemListActivity]
- * in two-pane mode (on tablets) or a [ItemDetailActivity]
- * on handsets.
- */
 class ItemDetailFragment : Fragment() {
 
-    /**
-     * The dummy content this fragment is presenting.
-     */
     private var item: Movie? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +43,7 @@ class ItemDetailFragment : Fragment() {
 
         // Show the dummy content as text in a TextView.
         item?.let {
-            rootView.findViewById<TextView>(R.id.item_detail).text = it.details
+            rootView.findViewById<TextView>(R.id.item_detail).text = it.plot
         }
 
         return rootView

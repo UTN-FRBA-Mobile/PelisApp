@@ -23,7 +23,7 @@ class SimpleItemRecyclerViewAdapter(private val originalItems: List<Movie>) :
         onClickListener = View.OnClickListener { v ->
             val item = v.tag as Movie
             val intent = Intent(v.context, ItemDetailActivity::class.java).apply {
-                putExtra(ItemDetailFragment.ARG_ITEM_ID, item.id)
+                putExtra(ItemDetailFragment.ARG_ITEM_ID, item.imdbID)
             }
             v.context.startActivity(intent)
         }
@@ -70,7 +70,7 @@ class SimpleItemRecyclerViewAdapter(private val originalItems: List<Movie>) :
 
         fun bind(pelicula: Movie){
             title.text = pelicula.title
-            rating.text = pelicula.rating
+            rating.text = pelicula.imdbRating
             favoriteada.mostrarPara(pelicula)
             vista.mostrarPara(pelicula)
             poster.loadUrl(pelicula.poster)
