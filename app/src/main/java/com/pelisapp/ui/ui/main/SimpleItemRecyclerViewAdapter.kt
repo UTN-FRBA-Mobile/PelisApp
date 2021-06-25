@@ -64,13 +64,20 @@ class SimpleItemRecyclerViewAdapter(private val originalItems: List<Movie>) :
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val title = view.findViewById(R.id.tvTitle) as TextView
         val rating = view.findViewById(R.id.tvIMDBRate) as TextView
+        val year = view.findViewById(R.id.tvYear) as TextView
+        val runtime = view.findViewById(R.id.tvRuntime) as TextView
+        val rated = view.findViewById(R.id.tvRated) as TextView
         val poster = view.findViewById(R.id.ivPoster) as ImageView
+
         val favoriteada = BotonFavorita(view.findViewById(R.id.ivIsFavourite) as ImageView, R.drawable.icons8_star_48_on, R.drawable.icons8_star_48_off)
         val vista = CheckboxVista(view.findViewById(R.id.ivWatched) as ImageView, R.drawable.ic_checked_checkbox_48, R.drawable.ic_unchecked_checkbox_48)
 
         fun bind(pelicula: Movie){
             title.text = pelicula.title
             rating.text = pelicula.imdbRating
+            year.text = pelicula.year
+            runtime.text = pelicula.runtime
+            rated.text = pelicula.rated
             favoriteada.mostrarPara(pelicula)
             vista.mostrarPara(pelicula)
             poster.loadUrl(pelicula.poster)

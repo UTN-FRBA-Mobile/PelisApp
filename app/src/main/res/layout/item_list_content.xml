@@ -20,17 +20,61 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/ivPoster"
-        android:textSize="20sp"
+        android:textSize="@dimen/titulo"
         android:textStyle="bold"
         tools:text="dadawdawdwd" />
+
+    <TextView
+        android:id="@+id/tvYear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTitle"
+        android:layout_toEndOf="@+id/ivPoster"
+        android:textSize="@dimen/subtitulo"
+        tools:text="wdawd" />
+
+    <TextView
+        android:id="@+id/first_line_separator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTitle"
+        android:layout_toEndOf="@+id/tvYear"
+        android:text="   |   "/>
 
     <TextView
         android:id="@+id/tvIMDBRate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvTitle"
+        android:layout_toEndOf="@+id/first_line_separator"
+        android:textSize="@dimen/subtitulo"
+        tools:text="wdawd" />
+
+    <TextView
+        android:id="@+id/tvRuntime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvIMDBRate"
         android:layout_toEndOf="@+id/ivPoster"
-        android:textSize="15sp"
+        android:textSize="@dimen/subtitulo"
+        tools:text="wdawd" />
+
+    <TextView
+        android:id="@+id/second_line_separator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvYear"
+        android:layout_toEndOf="@+id/tvRuntime"
+        android:text="   |   "/>
+
+
+    <TextView
+        android:id="@+id/tvRated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvIMDBRate"
+        android:layout_toEndOf="@+id/second_line_separator"
+        android:textSize="@dimen/subtitulo"
         tools:text="wdawd" />
 
     <LinearLayout
