@@ -11,7 +11,7 @@ import com.pelisapp.core.UserGroup
 import com.pelisapp.databinding.ViewListitemMovieBinding
 import com.squareup.picasso.Picasso
 
-class SimpleUserGroupItemRecyclerViewAdapter(private val values: List<UserGroup>) :
+class SimpleUserGroupItemRecyclerViewAdapter(private val values: List<UserGroup>?) :
         RecyclerView.Adapter<SimpleUserGroupItemRecyclerViewAdapter.ViewHolder>() {
 
     private var _binding: ViewListitemMovieBinding? = null
@@ -26,11 +26,11 @@ class SimpleUserGroupItemRecyclerViewAdapter(private val values: List<UserGroup>
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = values[position]
+        val item = values!![position]
         holder.bind(item)
     }
 
-    override fun getItemCount() = values.size
+    override fun getItemCount() = values!!.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val groupNameTitle = view.findViewById(R.id.groupName) as TextView
@@ -39,8 +39,8 @@ class SimpleUserGroupItemRecyclerViewAdapter(private val values: List<UserGroup>
 
         fun bind(userGroup: UserGroup){
             groupNameTitle.text = userGroup.name
-            groupParticipantsNames.text = userGroup.participants.map { participant -> participant.name }.joinToString { c -> c }
-            groupImage.loadUrl(userGroup.imageUrl)
+            groupParticipantsNames.text = userGroup.users!!.map { participant -> participant.name }.joinToString { c -> c!! }
+            userGroup.imageUrl?.let { groupImage.loadUrl(it) }
         }
 
         private fun ImageView.loadUrl(url: String) {

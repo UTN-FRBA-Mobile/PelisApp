@@ -1,6 +1,8 @@
 package com.pelisapp.core
 
-import com.fasterxml.jackson.annotation.JsonProperty
-
-class User(id: Int, val name: String) : Entity(id) {
+class User(val name: String? = null) {
+    override fun equals(other: Any?): Boolean {
+        other as User
+        return this.name.equals(other.name)
+    }
 }

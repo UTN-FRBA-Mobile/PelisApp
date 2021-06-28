@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.pelisapp.core.LoggedUserRepository
 import com.pelisapp.databinding.ActivityMainBinding
 import com.pelisapp.ui.dashboard.DashboardFragment
 import com.pelisapp.ui.dashboard.HomeFragment
@@ -49,6 +50,8 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionLis
         auth.signInWithEmailAndPassword(userWithEmail, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+                    LoggedUserRepository.setUserName(username)
+
                     homeFragment = HomeFragment()
 
                     supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
