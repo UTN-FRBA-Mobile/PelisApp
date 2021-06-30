@@ -9,13 +9,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.pelisapp.R
 import com.pelisapp.UserGroupDetailActivity
-import com.pelisapp.UserGroupsActivity
-import com.pelisapp.core.User
 import com.pelisapp.core.UserGroup
 import com.pelisapp.databinding.ViewListitemMovieBinding
 import com.squareup.picasso.Picasso
 
-class SimpleUserGroupItemRecyclerViewAdapter(private val values: List<UserGroup>) :
+class SimpleUserGroupItemRecyclerViewAdapter(private val values: List<UserGroup>?) :
         RecyclerView.Adapter<SimpleUserGroupItemRecyclerViewAdapter.ViewHolder>() {
 
     private var _binding: ViewListitemMovieBinding? = null
@@ -29,7 +27,7 @@ class SimpleUserGroupItemRecyclerViewAdapter(private val values: List<UserGroup>
         onClickListener = View.OnClickListener { v ->
             val item = v.tag as UserGroup
             val intent = Intent(v.context, UserGroupDetailActivity::class.java)
-            intent.putExtra("groupId", item.id)
+            intent.putExtra("groupId", item.name)
             v.context.startActivity(intent)
         }
     }
@@ -41,7 +39,7 @@ class SimpleUserGroupItemRecyclerViewAdapter(private val values: List<UserGroup>
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = values[position]
+        val item = values!![position]
         with(holder.itemView) {
             tag = item
             setOnClickListener(onClickListener)
@@ -49,7 +47,7 @@ class SimpleUserGroupItemRecyclerViewAdapter(private val values: List<UserGroup>
         holder.bind(item)
     }
 
-    override fun getItemCount() = values.size
+    override fun getItemCount() = values!!.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val groupNameTitle = view.findViewById(R.id.groupName) as TextView
@@ -58,8 +56,8 @@ class SimpleUserGroupItemRecyclerViewAdapter(private val values: List<UserGroup>
 
         fun bind(userGroup: UserGroup){
             groupNameTitle.text = userGroup.name
-            groupParticipantsNames.text = userGroup.participants.map { participant -> participant.name }.joinToString { c -> c }
-            groupImage.loadUrl(userGroup.imageUrl)
+            groupParticipantsNames.text = userGroup.users!!.map { participant -> participant.name }.joinToString { c -> c!! }
+            userGroup.imageUrl?.let { groupImage.loadUrl(it) }
         }
 
         private fun ImageView.loadUrl(url: String) {

@@ -9,13 +9,18 @@ import androidx.fragment.app.FragmentManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.pelisapp.core.LoggedUserRepository
 import com.pelisapp.databinding.ActivityMainBinding
 import com.pelisapp.ui.dashboard.DashboardFragment
+import com.pelisapp.ui.dashboard.HomeFragment
+import com.pelisapp.ui.groups.UserGroupsFragment
 import com.pelisapp.ui.login.LoginFragment
 
 class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionListener {
     private lateinit var loginFragment: Fragment
+    private lateinit var homeFragment: Fragment
     private lateinit var dashboardFragment: Fragment
+    private lateinit var groupsFragment: Fragment
 
     lateinit var binding: ActivityMainBinding
 
@@ -45,11 +50,13 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionLis
         auth.signInWithEmailAndPassword(userWithEmail, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    dashboardFragment = DashboardFragment()
+                    LoggedUserRepository.setUserName(username)
+
+                    homeFragment = HomeFragment()
 
                     supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
 
-                    supportFragmentManager.beginTransaction().remove(loginFragment).add(R.id.container, dashboardFragment).commitNow()
+                    supportFragmentManager.beginTransaction().remove(loginFragment).add(R.id.container, homeFragment).commitNow()
                 } else {
                     val incorrectUserPasswordTextView = findViewById<TextView>(R.id.incorrect_user_password)
 
@@ -60,6 +67,33 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionLis
 
     override fun onSignUp() {
         TODO("Not yet implemented")
+    }
+
+    override fun onBackPressed() {
+        if(supportFragmentManager.backStackEntryCount > 0){
+            supportFragmentManager.popBackStackImmediate()
+        }
+        else{
+            super.onBackPressed();
+        }
+    }
+
+    fun setMoviesView(){
+        dashboardFragment = DashboardFragment()
+        supportFragmentManager.beginTransaction()
+                .addToBackStack("home")
+                .remove(homeFragment)
+                .add(R.id.container, dashboardFragment)
+                .commit()
+    }
+
+    fun setGroupsView(){
+        groupsFragment = UserGroupsFragment()
+        supportFragmentManager.beginTransaction()
+            .addToBackStack("groups")
+            .remove(homeFragment)
+            .add(R.id.container, groupsFragment)
+            .commit()
     }
 
 }

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.pelisapp.core.User
 import com.pelisapp.core.UserGroup
 import com.pelisapp.core.UserGroupApi
+import com.pelisapp.core.UserGroupsListener
 import com.pelisapp.ui.SimpleUserGroupItemRecyclerViewAdapter
 import com.pelisapp.ui.SimpleUserItemRecyclerViewAdapter
 
@@ -17,15 +18,21 @@ class UserGroupDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_group_details)
 
-        val groupId = intent.getIntExtra("groupId", -1)
-        val group = UserGroupApi().getGroupById(groupId)
-        val groupNameTV = findViewById<TextView>(R.id.groupName)
-        groupNameTV.text = group.name
+        val groupId = intent.getStringExtra("groupId")
+        UserGroupApi().getAllGroupsFromFirebase(object: UserGroupsListener {
+            override fun onUserGroupsReceived(userGroups: List<UserGroup>?) {
 
-        setupRecyclerView(findViewById<View>(R.id.user_items_list) as RecyclerView, group)
+                var group = userGroups!!.first { group -> group.name == groupId }
+
+                val groupNameTV = findViewById<TextView>(R.id.groupName)
+                groupNameTV.text = group.name
+
+                setupRecyclerView(findViewById<View>(R.id.user_items_list) as RecyclerView, group)
+            }
+        });
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView, group: UserGroup) {
-        recyclerView.adapter = SimpleUserItemRecyclerViewAdapter(group.participants)
+        recyclerView.adapter = SimpleUserItemRecyclerViewAdapter(group.users)
     }
 }

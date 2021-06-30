@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/duplicateButton"
+        android:id="@+id/misPelisButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/duplicateButton2"
+        android:id="@+id/amigosButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -27,7 +27,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <Button
-        android:id="@+id/duplicateButton3"
+        android:id="@+id/gruposButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="28dp"
@@ -56,9 +56,9 @@
         android:layout_marginTop="3dp"
         android:layout_marginEnd="7dp"
         android:layout_marginBottom="3dp"
-        app:layout_constraintBottom_toTopOf="@+id/duplicateButton3"
-        app:layout_constraintEnd_toEndOf="@+id/duplicateButton3"
-        app:layout_constraintStart_toStartOf="@+id/duplicateButton3"
+        app:layout_constraintBottom_toTopOf="@+id/gruposButton"
+        app:layout_constraintEnd_toEndOf="@+id/gruposButton"
+        app:layout_constraintStart_toStartOf="@+id/gruposButton"
         app:layout_constraintTop_toTopOf="@+id/imageView2"
         app:srcCompat="@drawable/groups" />
 
@@ -69,13 +69,13 @@
         android:layout_marginStart="14dp"
         android:layout_marginEnd="14dp"
         android:layout_marginBottom="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/duplicateButton"
-        app:layout_constraintEnd_toEndOf="@+id/duplicateButton"
-        app:layout_constraintStart_toStartOf="@+id/duplicateButton"
+        app:layout_constraintBottom_toTopOf="@+id/misPelisButton"
+        app:layout_constraintEnd_toEndOf="@+id/misPelisButton"
+        app:layout_constraintStart_toStartOf="@+id/misPelisButton"
         app:srcCompat="@drawable/movies1" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/nuevoGrupoButton"
         android:layout_width="251dp"
         android:layout_height="69dp"
         android:layout_marginTop="183dp"
@@ -114,7 +114,7 @@
         android:layout_marginTop="119dp"
         android:layout_marginEnd="28dp"
         android:layout_marginBottom="115dp"
-        app:layout_constraintBottom_toTopOf="@+id/button4"
+        app:layout_constraintBottom_toTopOf="@+id/nuevoGrupoButton"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/lupa2" />
