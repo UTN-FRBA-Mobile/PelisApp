@@ -21,6 +21,8 @@
         </activity>
         <activity android:name=".UserGroupDetailActivity">
         </activity>
+        <activity android:name=".MoviesFilterActivity">
+        </activity>
     </application>
 
 </manifest>
