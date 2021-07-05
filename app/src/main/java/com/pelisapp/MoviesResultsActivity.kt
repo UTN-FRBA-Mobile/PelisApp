@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.pelisapp.core.Movie
 import com.pelisapp.core.MovieApi
+import com.pelisapp.core.MoviesListener
 import com.pelisapp.ui.dashboard.MoviesAdapter
 
 class MoviesResultsActivity : AppCompatActivity() {
@@ -16,13 +18,14 @@ class MoviesResultsActivity : AppCompatActivity() {
 
         val rvMovies = findViewById<View>(R.id.results_recycler_view) as RecyclerView
 
-        //ToDo: reemplazar por peliculas elegidas
-        val movies = MovieApi().getMovies()
-
-        val adapter = MoviesAdapter(movies)
-
-        rvMovies.adapter = adapter
-
         rvMovies.layoutManager = LinearLayoutManager(this)
+
+        MovieApi().getAllMoviesFromFirebase(object: MoviesListener{
+            override fun onMoviesReceived(movies: List<Movie>?) {
+                val adapter = MoviesAdapter(movies)
+
+                rvMovies.adapter = adapter
+            }
+        })
     }
 }

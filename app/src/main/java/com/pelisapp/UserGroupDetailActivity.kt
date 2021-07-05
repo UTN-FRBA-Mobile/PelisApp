@@ -31,7 +31,7 @@ class UserGroupDetailActivity : AppCompatActivity(), View.OnClickListener {
 
                 setupRecyclerView(findViewById<View>(R.id.user_items_list) as RecyclerView, group)
             }
-        });
+        })
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView, group: UserGroup) {
@@ -39,7 +39,6 @@ class UserGroupDetailActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(view: View?) {
-        println(view)
         when(view?.id){
             R.id.chooseAMovieBtn->{
                 setFiltersView()
