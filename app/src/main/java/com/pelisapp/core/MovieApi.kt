@@ -5,6 +5,12 @@ import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.MapperFeature
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
+import com.google.firebase.ktx.Firebase
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
@@ -32,6 +38,22 @@ class MovieApi {
             println("json response: $json")
             return mapper.readValue(json)
         }
+    }
+
+    fun getAllMoviesFromFirebase(listener: MoviesListener){
+        val database = Firebase.database
+        val myRef = database.getReference("movies")
+
+        myRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                var movies = dataSnapshot.getValue<List<Movie>>()
+                listener.onMoviesReceived(movies)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                println("Failed to read value from Firebase Realtime Database")
+            }
+        })
     }
 
     private fun allowNetworkPermission() {

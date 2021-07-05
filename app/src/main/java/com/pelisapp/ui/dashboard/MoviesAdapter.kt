@@ -7,7 +7,7 @@ import com.pelisapp.core.Movie
 import com.pelisapp.databinding.ViewListitemMovieBinding
 import com.squareup.picasso.Picasso
 
-class MoviesAdapter(private val movies: List<Movie>) :
+class MoviesAdapter(private val movies: List<Movie>?) :
     RecyclerView.Adapter<MoviesAdapter.MyViewHolder>() {
 
     private var _binding: ViewListitemMovieBinding? = null
@@ -25,7 +25,7 @@ class MoviesAdapter(private val movies: List<Movie>) :
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val movie = movies[position]
+        val movie = movies!![position]
         inflateView(movie)
     }
 
@@ -41,5 +41,5 @@ class MoviesAdapter(private val movies: List<Movie>) :
 
     }
 
-    override fun getItemCount() = movies.size
+    override fun getItemCount() = movies!!.size
 }

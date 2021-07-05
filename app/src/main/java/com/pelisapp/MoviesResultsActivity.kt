@@ -2,11 +2,9 @@ package com.pelisapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.pelisapp.core.MovieApi
-import com.pelisapp.ui.dashboard.MoviesAdapter
+import com.pelisapp.core.*
+import com.pelisapp.ui.results.MoviesResultsFragment
+import com.pelisapp.ui.results.WaitingForParticipantsFragment
 
 class MoviesResultsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,15 +12,19 @@ class MoviesResultsActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_movies_results)
 
-        val rvMovies = findViewById<View>(R.id.results_recycler_view) as RecyclerView
+        PreferencesApi().getAllPreferencesFromFirebase(object: PreferencesListener {
+            override fun onPreferencesReceived(preferences: HashMap<String, Preference>?) {
 
-        //ToDo: reemplazar por peliculas elegidas
-        val movies = MovieApi().getMovies()
-
-        val adapter = MoviesAdapter(movies)
-
-        rvMovies.adapter = adapter
-
-        rvMovies.layoutManager = LinearLayoutManager(this)
+                var mockUsers = listOf("mbaridon", "msalazar")
+                var users = preferences!!.keys.toList()
+                if(users != mockUsers){
+                    var waitingForParticipantsFragment = WaitingForParticipantsFragment()
+                    supportFragmentManager.beginTransaction().replace(R.id.results_container, waitingForParticipantsFragment).commitNow()
+                }else{
+                    var resultsFragment = MoviesResultsFragment()
+                    supportFragmentManager.beginTransaction().replace(R.id.results_container, resultsFragment).commitNow()
+                }
+            }
+        })
     }
 }
