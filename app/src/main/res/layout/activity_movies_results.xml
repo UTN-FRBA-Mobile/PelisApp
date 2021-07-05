@@ -7,16 +7,9 @@
     android:orientation="vertical"
     android:padding="10dp">
 
-    <TextView
-        android:id="@+id/textView"
+    <FrameLayout android:id="@+id/results_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Encontramos:"
-        android:textSize="36sp" />
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/results_recycler_view"
-        android:scrollbars="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 </LinearLayout>
