@@ -5,6 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.Spinner
+import com.pelisapp.core.LoggedUserRepository
+import com.pelisapp.core.Preference
+import com.pelisapp.core.PreferencesApi
 
 class MoviesFilterActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -19,8 +23,25 @@ class MoviesFilterActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View?) {
         when(view?.id){
             R.id.save_button->{
+                savePreferences()
                 setResultsView()
             }
+        }
+    }
+
+    private fun savePreferences() {
+        var userName = LoggedUserRepository.getUser().name
+
+        var genreSpinner = findViewById<Spinner>(R.id.genre_spinner)
+        var genre = genreSpinner.selectedItem.toString()
+
+        var directorSpinner = findViewById<Spinner>(R.id.director_spinner)
+        var director = directorSpinner.selectedItem.toString()
+
+        var preference = Preference(userName, genre, director)
+
+        if (userName != null) {
+            PreferencesApi().saveUserPreferenceIntoFirebase(userName, preference)
         }
     }
 
