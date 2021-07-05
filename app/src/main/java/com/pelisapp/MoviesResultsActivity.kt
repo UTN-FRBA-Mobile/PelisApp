@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.pelisapp.core.Movie
-import com.pelisapp.core.MovieApi
-import com.pelisapp.core.MoviesListener
+import com.pelisapp.core.*
 import com.pelisapp.ui.dashboard.MoviesAdapter
 
 class MoviesResultsActivity : AppCompatActivity() {
@@ -22,10 +20,26 @@ class MoviesResultsActivity : AppCompatActivity() {
 
         MovieApi().getAllMoviesFromFirebase(object: MoviesListener{
             override fun onMoviesReceived(movies: List<Movie>?) {
-                val adapter = MoviesAdapter(movies)
+                PreferencesApi().getAllPreferencesFromFirebase(object: PreferencesListener {
+                    override fun onPreferencesReceived(preferences: HashMap<String, Preference>?) {
+                        var directors = preferences!!.values.toList().map { pref -> pref.director }
+                        var genres = preferences!!.values.toList().map { pref -> pref.genre }
 
-                rvMovies.adapter = adapter
+                        var chosenDirector = getMostRepeatedWord(directors)
+                        var chosenGenre = getMostRepeatedWord(genres)
+
+                        var chosenMovies = movies!!.filter { movie -> movie.director.equals(chosenDirector) && movie.genre.equals(chosenGenre) }
+
+                        val adapter = MoviesAdapter(chosenMovies)
+
+                        rvMovies.adapter = adapter
+                    }
+                })
             }
         })
+    }
+
+    fun getMostRepeatedWord(words: List<String?>): String? {
+        return words.groupingBy{ it }.eachCount().entries.maxByOrNull{ (k, v) -> v }!!.key
     }
 }
