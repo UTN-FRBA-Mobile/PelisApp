@@ -34,7 +34,7 @@ class HomeFragment : Fragment(), View.OnClickListener  {
                 mainActivity.setMoviesView()
             }
             R.id.amigosButton->{
-                //TODO: flujo amigos
+                mainActivity.setFriendsView()
             }
             R.id.gruposButton->{
                 mainActivity.setGroupsView()
