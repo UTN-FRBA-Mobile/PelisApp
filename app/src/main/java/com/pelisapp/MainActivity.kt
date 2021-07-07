@@ -13,6 +13,7 @@ import com.pelisapp.core.LoggedUserRepository
 import com.pelisapp.databinding.ActivityMainBinding
 import com.pelisapp.ui.dashboard.DashboardFragment
 import com.pelisapp.ui.dashboard.HomeFragment
+import com.pelisapp.ui.friends.FriendsFragment
 import com.pelisapp.ui.groups.UserGroupsFragment
 import com.pelisapp.ui.login.LoginFragment
 
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionLis
     private lateinit var homeFragment: Fragment
     private lateinit var dashboardFragment: Fragment
     private lateinit var groupsFragment: Fragment
+    private lateinit var friendsFragment: Fragment
 
     lateinit var binding: ActivityMainBinding
 
@@ -96,4 +98,12 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionLis
             .commit()
     }
 
+    fun setFriendsView(){
+        friendsFragment = FriendsFragment()
+        supportFragmentManager.beginTransaction()
+            .addToBackStack("friends")
+            .remove(homeFragment)
+            .add(R.id.container, friendsFragment)
+            .commit()
+    }
 }

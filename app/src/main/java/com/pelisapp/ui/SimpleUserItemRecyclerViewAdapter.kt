@@ -55,10 +55,10 @@ class SimpleUserItemRecyclerViewAdapter(private val values: List<User>?) :
 
         fun bind(user: User){
             userName.text = user.name
-            // userAvatar.loadUrl(user.avatarUrl)
+            userAvatar.loadUrl(user.avatarUrl)
         }
 
-        private fun ImageView.loadUrl(url: String) {
+        private fun ImageView.loadUrl(url: String?) {
             Picasso.get().load(url).into(this)
         }
     }
