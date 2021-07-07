@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.pelisapp.core.LoggedUserRepository
 import com.pelisapp.core.UserGroup
 import com.pelisapp.core.UserGroupApi
 import com.pelisapp.core.UserGroupsListener
@@ -25,6 +26,8 @@ class UserGroupDetailActivity : AppCompatActivity(), View.OnClickListener {
             override fun onUserGroupsReceived(userGroups: List<UserGroup>?) {
 
                 var group = userGroups!!.first { group -> group.name == groupId }
+
+                LoggedUserRepository.setGroupName(group.name!!)
 
                 val groupNameTV = findViewById<TextView>(R.id.groupName)
                 groupNameTV.text = group.name

@@ -2,6 +2,7 @@ package com.pelisapp.core
 
 object LoggedUserRepository {
     private var userName: String = ""
+    private var groupName: String = ""
 
     fun setUserName(userName: String){
         this.userName = userName
@@ -9,5 +10,13 @@ object LoggedUserRepository {
 
     fun getUser(): User{
         return User(userName)
+    }
+
+    fun setGroupName(groupName: String){
+        this.groupName = groupName
+    }
+
+    fun getGroupName(): String{
+        return groupName
     }
 }
