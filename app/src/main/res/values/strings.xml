@@ -2,4 +2,22 @@
     <string name="app_name">PelisApp</string>
     <string name="title_item_detail">Item Detail</string>
     <string name="hint_busqueda">Buscar pelis y series...</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="mis_pelis">Mis Pelis</string>
+    <string name="amigos">Amigos</string>
+    <string-array name="genres">
+        <item>Comedia</item>
+        <item>Acción</item>
+        <item>Drama</item>
+    </string-array>
+    <string-array name="directors">
+        <item>James Cameron</item>
+        <item>Christopher Nolan</item>
+        <item>Anthony Russo</item>
+    </string-array>
+    <string-array name="home_variables">
+        <item>Mis Pelis</item>
+        <item>Amigos</item>
+    </string-array>
 </resources>

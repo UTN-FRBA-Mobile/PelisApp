@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "597375411484",
+    "project_id": "pelisapp-mobile",
+    "storage_bucket": "pelisapp-mobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:597375411484:android:09cff0b3a94f85951646d9",
+        "android_client_info": {
+          "package_name": "com.pelisapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "597375411484-7g3kqabbndu67f3c02ekv4jvivh4oqma.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALZutOMcHyq-XoO-n3H6y7c8gQJrjnv5I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "597375411484-7g3kqabbndu67f3c02ekv4jvivh4oqma.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
