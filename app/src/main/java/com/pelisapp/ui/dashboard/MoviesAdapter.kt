@@ -32,11 +32,11 @@ class MoviesAdapter(private val movies: List<Movie>?) :
     private fun inflateView(movie: Movie) {
         binding.apply {
             movieTitle.text = movie.title
-            movieRating.text = movie.rating
+            movieRating.text = movie.imdbRating
             movieLanguage.text = movie.language
             Picasso.get()
-                    .load(movie.poster)
-                    .into(moviePoster)
+                .load(movie.poster)
+                .into(moviePoster)
         }
 
     }

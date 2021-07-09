@@ -19,6 +19,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ItemListActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.PelisApp.NoActionBar">
+        </activity>
+        <activity
+            android:name="com.android.example.pelisApp.ItemDetailActivity"
+            android:label="@string/title_item_detail"
+            android:parentActivityName=".ItemListActivity"
+            android:theme="@style/Theme.PelisApp.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ItemListActivity" />
+        </activity>
         <activity android:name=".UserGroupDetailActivity">
         </activity>
         <activity android:name=".MoviesFilterActivity">
