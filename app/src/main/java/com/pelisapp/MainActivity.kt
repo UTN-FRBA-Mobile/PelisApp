@@ -1,5 +1,6 @@
 package com.pelisapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -11,7 +12,6 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.pelisapp.core.LoggedUserRepository
 import com.pelisapp.databinding.ActivityMainBinding
-import com.pelisapp.ui.dashboard.DashboardFragment
 import com.pelisapp.ui.dashboard.HomeFragment
 import com.pelisapp.ui.friends.FriendsFragment
 import com.pelisapp.ui.groups.UserGroupsFragment
@@ -20,7 +20,6 @@ import com.pelisapp.ui.login.LoginFragment
 class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionListener {
     private lateinit var loginFragment: Fragment
     private lateinit var homeFragment: Fragment
-    private lateinit var dashboardFragment: Fragment
     private lateinit var groupsFragment: Fragment
     private lateinit var friendsFragment: Fragment
 
@@ -81,12 +80,8 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionLis
     }
 
     fun setMoviesView(){
-        dashboardFragment = DashboardFragment()
-        supportFragmentManager.beginTransaction()
-                .addToBackStack("home")
-                .remove(homeFragment)
-                .add(R.id.container, dashboardFragment)
-                .commit()
+        val intent = Intent(this, ItemListActivity::class.java)
+        startActivity(intent)
     }
 
     fun setGroupsView(){
