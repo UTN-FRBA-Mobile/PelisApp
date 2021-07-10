@@ -1,14 +1,18 @@
 package com.pelisapp.ui.groups
 
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.pelisapp.R
-import com.pelisapp.core.*
+import com.pelisapp.core.LoggedUserRepository
+import com.pelisapp.core.UserGroup
+import com.pelisapp.core.UserGroupApi
+import com.pelisapp.core.UserGroupsListener
 import com.pelisapp.databinding.FragmentUserGroupsBinding
 import com.pelisapp.ui.SimpleUserGroupItemRecyclerViewAdapter
 
@@ -19,6 +23,8 @@ class UserGroupsFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var recyclerView: RecyclerView
+
+    private var listener: UserGroupsInteractionListener? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentUserGroupsBinding.inflate(inflater, container, false)
@@ -46,5 +52,27 @@ class UserGroupsFragment : Fragment() {
                 }
             }
         })
+
+        binding.createNewGroupBtn.setOnClickListener {
+            listener!!.createNewGroup()
+        }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is UserGroupsInteractionListener) {
+            listener = context
+        } else {
+            throw RuntimeException("$context must implement UserGroupsInteractionListener")
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
+    }
+
+    interface UserGroupsInteractionListener {
+        fun createNewGroup()
     }
 }

@@ -17,7 +17,8 @@ import com.pelisapp.ui.friends.FriendsFragment
 import com.pelisapp.ui.groups.UserGroupsFragment
 import com.pelisapp.ui.login.LoginFragment
 
-class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionListener {
+class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionListener,
+    UserGroupsFragment.UserGroupsInteractionListener {
     private lateinit var loginFragment: Fragment
     private lateinit var homeFragment: Fragment
     private lateinit var groupsFragment: Fragment
@@ -105,5 +106,9 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionLis
     fun setNewGroup() {
         val intent = Intent(this, NewGroupActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun createNewGroup() {
+        setNewGroup()
     }
 }
