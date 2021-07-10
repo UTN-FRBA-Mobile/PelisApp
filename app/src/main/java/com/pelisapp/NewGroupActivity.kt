@@ -1,6 +1,7 @@
 package com.pelisapp
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +20,8 @@ class NewGroupActivity : AppCompatActivity() {
 
     private lateinit var usersAdapter: UsersAdapter
     private lateinit var usersRecyclerView: RecyclerView
+
+    private var userList: List<User>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +43,7 @@ class NewGroupActivity : AppCompatActivity() {
 
         UsersApi().getAllUsersFromFirebase(object: UsersListener {
             override fun onUsersReceived(users: List<User>?) {
+                userList = users!!
                 usersAdapter = UsersAdapter(users!!)
 
                 usersRecyclerView = binding.myRecyclerView.apply {
@@ -52,11 +56,18 @@ class NewGroupActivity : AppCompatActivity() {
         })
 
         //TODO hacer que agarre a los usuarios seleccionados, y permitir poner nombre del grupo
-        val user = User("Javeee", "jave.img")
-        val users: List<User> = listOf(user)
+//        val user = User("Javeee", "jave.img")
+//        val users: List<User> = listOf(user)
+        //var groupName: String? = binding.newGroupName.text.toString()
+
         binding.newGroupButton.setOnClickListener {
-            val userGroup = UserGroup("laPapa", "laImagen", users)
+            val userGroup = UserGroup("El grupeteeee", "laImagen", userList)
             UserGroupApi().saveUserGroup(userGroup)
+            val text = "Grupo guardado!"
+            val duration = Toast.LENGTH_SHORT
+
+            val toast = Toast.makeText(applicationContext, text, duration)
+            toast.show()
         }
     }
 

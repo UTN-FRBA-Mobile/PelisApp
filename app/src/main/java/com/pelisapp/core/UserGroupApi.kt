@@ -27,7 +27,8 @@ class UserGroupApi {
     }
 
     fun saveUserGroup(userGroup: UserGroup) {
-        myRef.child(userGroup.name!!).setValue(userGroup)
+        //myRef.child(userGroup.name!!).setValue(userGroup) TODO esto ya ta andando, pero lo dejo comentado para no llenar la base con basura
+        println("Voy a guardar: ${userGroup.name} y con usuarios: ${userGroup.users}")
     }
 
 }
