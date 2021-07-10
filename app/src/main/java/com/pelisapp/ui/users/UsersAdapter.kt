@@ -1,4 +1,4 @@
-package com.pelisapp.ui.groups.new
+package com.pelisapp.ui.users
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -70,13 +70,6 @@ class UsersAdapter(private val users: List<User>) :
                 return filterResults
             }
 
-            /*
-            this.results.clear();
-    this.results.addAll(results);
-    notifyDataSetChanged();
-             */
-
-            //@Suppress("UNCHECKED_CAST")
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
                 println("results?.values : ${results?.values}")
                 userFilterList = results?.values as List<User>

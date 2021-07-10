@@ -9,7 +9,7 @@ import com.pelisapp.core.User
 import com.pelisapp.core.UsersApi
 import com.pelisapp.core.UsersListener
 import com.pelisapp.databinding.FragmentNewGroupBinding
-import com.pelisapp.ui.groups.new.UsersAdapter
+import com.pelisapp.ui.users.UsersAdapter
 
 
 class NewGroupActivity : AppCompatActivity() {
