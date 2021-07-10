@@ -40,7 +40,7 @@ class HomeFragment : Fragment(), View.OnClickListener  {
                 mainActivity.setGroupsView()
             }
             R.id.nuevoGrupoButton->{
-                //TODO: flujo nuevo grupo
+                mainActivity.setNewGroup()
             }
         }
     }

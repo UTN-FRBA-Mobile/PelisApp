@@ -101,4 +101,9 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionLis
             .add(R.id.container, friendsFragment)
             .commit()
     }
+
+    fun setNewGroup() {
+        val intent = Intent(this, NewGroupActivity::class.java)
+        startActivity(intent)
+    }
 }

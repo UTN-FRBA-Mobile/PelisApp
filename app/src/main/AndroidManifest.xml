@@ -39,6 +39,8 @@
         </activity>
         <activity android:name=".MoviesResultsActivity">
         </activity>
+        <activity android:name=".NewGroupActivity">
+        </activity>
     </application>
 
 </manifest>
