@@ -9,9 +9,10 @@ import com.google.firebase.ktx.Firebase
 
 class UserGroupApi {
 
+    private val database = Firebase.database
+    private val myRef = database.getReference("userGroups")
+
     fun getAllGroupsFromFirebase(listener: UserGroupsListener){
-        val database = Firebase.database
-        val myRef = database.getReference("userGroups")
 
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -24,4 +25,9 @@ class UserGroupApi {
             }
         })
     }
+
+    fun saveUserGroup(userGroup: UserGroup) {
+        myRef.child(userGroup.name!!).setValue(userGroup)
+    }
+
 }

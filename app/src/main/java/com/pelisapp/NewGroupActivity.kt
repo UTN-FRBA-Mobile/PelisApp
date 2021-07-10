@@ -5,9 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.pelisapp.core.User
-import com.pelisapp.core.UsersApi
-import com.pelisapp.core.UsersListener
+import com.pelisapp.core.*
 import com.pelisapp.databinding.FragmentNewGroupBinding
 import com.pelisapp.ui.users.UsersAdapter
 
@@ -52,6 +50,14 @@ class NewGroupActivity : AppCompatActivity() {
                 usersRecyclerView.adapter = usersAdapter
             }
         })
+
+        //TODO hacer que agarre a los usuarios seleccionados, y permitir poner nombre del grupo
+        val user = User("Javeee", "jave.img")
+        val users: List<User> = listOf(user)
+        binding.newGroupButton.setOnClickListener {
+            val userGroup = UserGroup("laPapa", "laImagen", users)
+            UserGroupApi().saveUserGroup(userGroup)
+        }
     }
 
 }

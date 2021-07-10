@@ -103,12 +103,9 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionLis
             .commit()
     }
 
-    fun setNewGroup() {
+    override fun setNewGroup() {
         val intent = Intent(this, NewGroupActivity::class.java)
         startActivity(intent)
     }
 
-    override fun createNewGroup() {
-        setNewGroup()
-    }
 }

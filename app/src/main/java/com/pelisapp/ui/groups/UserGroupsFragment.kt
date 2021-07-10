@@ -54,7 +54,7 @@ class UserGroupsFragment : Fragment() {
         })
 
         binding.createNewGroupBtn.setOnClickListener {
-            listener!!.createNewGroup()
+            listener!!.setNewGroup()
         }
     }
 
@@ -73,6 +73,6 @@ class UserGroupsFragment : Fragment() {
     }
 
     interface UserGroupsInteractionListener {
-        fun createNewGroup()
+        fun setNewGroup()
     }
 }
