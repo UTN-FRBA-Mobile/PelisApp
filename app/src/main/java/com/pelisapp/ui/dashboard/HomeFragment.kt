@@ -19,29 +19,28 @@ class HomeFragment : Fragment(), View.OnClickListener  {
         println("onCreateView")
         _binding = ActivityHomeBinding.inflate(inflater, container, false)
 
-        binding.root.getViewById(R.id.misPelisButton).setOnClickListener(this)
-        binding.root.getViewById(R.id.amigosButton).setOnClickListener(this)
-        binding.root.getViewById(R.id.gruposButton).setOnClickListener(this)
-        binding.root.getViewById(R.id.nuevoGrupoButton).setOnClickListener(this)
+        binding.myMoviesButton.setOnClickListener(this)
+        binding.myFriendsButton.setOnClickListener(this)
+        binding.groupsButton.setOnClickListener(this)
+        binding.newGroupButton.setOnClickListener(this)
+        binding.moviesFinderSearchView.setOnClickListener(this)
+        binding.micButton.setOnClickListener(this)
 
         return binding.root
     }
 
     override fun onClick(view: View?) {
-        var mainActivity = activity as MainActivity
+        val mainActivity = activity as MainActivity
         when(view?.id){
-            R.id.misPelisButton->{
-                mainActivity.setMoviesView()
+            R.id.my_movies_button -> mainActivity.setMoviesView()
+            R.id.my_friends_button -> mainActivity.setFriendsView()
+            R.id.groups_button -> mainActivity.setGroupsView()
+            R.id.new_group_button -> { } //TODO: flujo nuevo grupo
+            R.id.movies_finder_search_view -> {
+                val movieToFind = binding.moviesFinderSearchView.query.toString()
+                mainActivity.setListOfMoviesView(movieToFind)
             }
-            R.id.amigosButton->{
-                mainActivity.setFriendsView()
-            }
-            R.id.gruposButton->{
-                mainActivity.setGroupsView()
-            }
-            R.id.nuevoGrupoButton->{
-                //TODO: flujo nuevo grupo
-            }
+            R.id.micButton-> mainActivity.askSpeechInput()
         }
     }
 

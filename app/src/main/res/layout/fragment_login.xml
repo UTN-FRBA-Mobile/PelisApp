@@ -8,10 +8,10 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:src="@drawable/logo_app"
-        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"/>
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/logo_app" />
 
     <EditText
         android:id="@+id/username"
@@ -40,6 +40,15 @@
         android:textColor="@color/colorAccent"
         android:layout_gravity="end"
         android:text="Registrarse"/>
+
+<!-- En desarrollo -->
+    <TextView
+        android:id="@+id/direct_access"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/purple_700"
+        android:layout_gravity="left"
+        android:text="Ingreso Directo (solo en desarrollo)"/>
 
     <TextView
         android:id="@+id/incorrect_user_password"

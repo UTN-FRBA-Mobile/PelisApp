@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.pelisapp.R
 import com.pelisapp.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {
@@ -35,6 +37,10 @@ class LoginFragment : Fragment() {
         binding.signUpButton.setOnClickListener {
             listener!!.onSignUp()
         }
+
+        binding.directAccess.setOnClickListener {
+            listener!!.onDirectLogin()
+        }
     }
 
     override fun onAttach(context: Context) {
@@ -54,5 +60,6 @@ class LoginFragment : Fragment() {
     interface OnFragmentInteractionListener {
         fun onLogin(username: String, password: String)
         fun onSignUp()
+        fun onDirectLogin()
     }
 }
