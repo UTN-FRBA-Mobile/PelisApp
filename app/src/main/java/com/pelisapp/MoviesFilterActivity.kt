@@ -15,6 +15,18 @@ class MoviesFilterActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movies_filter)
 
+        GenresApi().getAllGenresFromFirebase(object: GenresListener{
+            override fun onGenresReceived(genres: List<Genre>?) {
+                var genresSpinner = findViewById<Spinner>(R.id.genre_spinner)
+
+                var genreNames = genres!!.map { genre -> genre.name }
+
+                var arrayAdapter = ArrayAdapter(this@MoviesFilterActivity, android.R.layout.simple_spinner_item, genreNames)
+
+                genresSpinner.adapter = arrayAdapter
+            }
+        })
+
         DirectorsApi().getAllDirectorsFromFirebase(object: DirectorsListener{
             override fun onDirectorsReceived(directors: List<Director>?) {
                 var directorSpinner = findViewById<Spinner>(R.id.director_spinner)
