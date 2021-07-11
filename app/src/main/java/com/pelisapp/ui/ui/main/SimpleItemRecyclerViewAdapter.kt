@@ -7,15 +7,19 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.pelisapp.R
 import com.pelisapp.core.Movie
 import com.pelisapp.ui.elements.BotonFavorita
 import com.pelisapp.ui.elements.CheckboxVista
 import com.squareup.picasso.Picasso
+import java.io.Serializable
 
 class SimpleItemRecyclerViewAdapter(private val originalItems: List<Movie>) :
         RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>() {
 
+    val mapper = ObjectMapper().registerModule(KotlinModule())
     private val onClickListener: View.OnClickListener
     private var mutableItems : MutableList<Movie> = originalItems.toMutableList()
 
@@ -23,7 +27,7 @@ class SimpleItemRecyclerViewAdapter(private val originalItems: List<Movie>) :
         onClickListener = View.OnClickListener { v ->
             val item = v.tag as Movie
             val intent = Intent(v.context, ItemDetailActivity::class.java).apply {
-                putExtra(ItemDetailFragment.ARG_ITEM_ID, item.imdbID)
+                putExtra(ItemDetailFragment.ARG_MOVIE, mapper.writeValueAsString(item))
             }
             v.context.startActivity(intent)
         }
@@ -51,11 +55,16 @@ class SimpleItemRecyclerViewAdapter(private val originalItems: List<Movie>) :
             mutableItems.clear()
             mutableItems.addAll(originalItems)
         } else {
-            var filtered : List<Movie> = originalItems.filter { item -> item.title.toLowerCase().contains(search.toLowerCase()) }
+            var filtered : List<Movie> = originalItems.filter { item -> item.title.orEmpty().toLowerCase().contains(search.toLowerCase()) }
             mutableItems.clear()
             mutableItems.addAll(filtered)
         }
 
+        notifyDataSetChanged()
+    }
+
+    fun updateDataset(movies: List<Movie>) {
+        this.mutableItems = movies.toMutableList()
         notifyDataSetChanged()
     }
 
@@ -80,7 +89,7 @@ class SimpleItemRecyclerViewAdapter(private val originalItems: List<Movie>) :
             rated.text = pelicula.rated
             favoriteada.mostrarPara(pelicula)
             vista.mostrarPara(pelicula)
-            poster.loadUrl(pelicula.poster)
+            poster.loadUrl(pelicula.poster.orEmpty())
         }
 
         private fun ImageView.loadUrl(url: String) {

@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.pelisapp.R
 import com.pelisapp.core.DummyContent
 import com.pelisapp.core.Movie
@@ -15,17 +17,18 @@ import com.pelisapp.ui.elements.CheckboxVista
 
 class ItemDetailFragment : Fragment() {
 
+    val mapper = ObjectMapper().registerModule(KotlinModule())
     private var item: Movie? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         arguments?.let {
-            if (it.containsKey(ARG_ITEM_ID)) {
+            if (it.containsKey(ARG_MOVIE)) {
                 // Load the dummy content specified by the fragment
                 // arguments. In a real-world scenario, use a Loader
                 // to load content from a content provider.
-                item = DummyContent.ITEM_MAP[it.getString(ARG_ITEM_ID)]
+                item = mapper.readValue(it.getString(ARG_MOVIE), Movie::class.java)
                 activity?.findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout)?.title = item?.title
             }
         }
@@ -54,6 +57,6 @@ class ItemDetailFragment : Fragment() {
          * The fragment argument representing the item ID that this fragment
          * represents.
          */
-        const val ARG_ITEM_ID = "item_id"
+        const val ARG_MOVIE = "movie"
     }
 }

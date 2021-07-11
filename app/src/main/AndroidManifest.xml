@@ -13,16 +13,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PelisApp">
         <activity android:name=".MainActivity">
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
         <activity
             android:name=".ItemListActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.PelisApp.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter> <!--TODO NO COMITEAR-->
         </activity>
         <activity
             android:name="com.android.example.pelisApp.ItemDetailActivity"
