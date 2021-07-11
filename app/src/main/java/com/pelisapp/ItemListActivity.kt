@@ -7,11 +7,10 @@ import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.RecyclerView
 import com.android.example.pelisApp.SimpleItemRecyclerViewAdapter
-import com.pelisapp.core.DummyContent
-import com.pelisapp.core.MovieApi
+import com.pelisapp.core.*
 import java.util.logging.Level.INFO
 
-class ItemListActivity : SearchView.OnQueryTextListener, AppCompatActivity() {
+class ItemListActivity : SearchView.OnQueryTextListener, SearchView.OnCloseListener, AppCompatActivity() {
     private lateinit var adapter: SimpleItemRecyclerViewAdapter
     private val movieApi = MovieApi()
     private lateinit var busqueda: SearchView
@@ -26,7 +25,8 @@ class ItemListActivity : SearchView.OnQueryTextListener, AppCompatActivity() {
 
         setUpBotonBusqueda()
 
-        setupRecyclerView(findViewById(R.id.item_list))
+        //setupRecyclerView(findViewById(R.id.item_list))
+        getUserMovies()
     }
 
     private fun setUpBotonBusqueda() {
@@ -34,8 +34,7 @@ class ItemListActivity : SearchView.OnQueryTextListener, AppCompatActivity() {
         busqueda.setOnQueryTextListener(this)
     }
 
-    private fun setupRecyclerView(recyclerView: RecyclerView) {
-        var movies = movieApi.getMovies()
+    private fun setupRecyclerView(recyclerView: RecyclerView, movies: List<Movie>) {
         adapter = SimpleItemRecyclerViewAdapter(movies)
         recyclerView.adapter = adapter
     }
@@ -49,6 +48,37 @@ class ItemListActivity : SearchView.OnQueryTextListener, AppCompatActivity() {
 
         adapter.updateDataset(queryResult)
         return false
+    }
+
+    override fun onClose(): Boolean {
+        this.getUserMovies()
+        return false
+    }
+
+    private fun getUserMovies() {
+        MovieApi().getAllMoviesFromFirebase(object: MoviesListener {
+            override fun onMoviesReceived(savedMovies: List<UserMovie>?) {
+                if(savedMovies!!.isEmpty()) {
+                    Log.i("ItemList", "No hay peliculas guardadas para el usuario")
+                    // TODO aca mostrar un mensajito de que esta vacia, que busque una y la agregue a su lista de favoritas o vistas.
+                    return
+                }
+
+                var movies = mutableListOf<Movie>()
+                savedMovies.forEach {
+                    var movie = MovieApi().getMovieByIMDBId(it.imdbID!!) // FIXME pasarle a la Movie si esta fav o no y si esta vista o no antes de pasarsela al recycler
+                    if (it.favoriteada!!) {
+                        movie.cambiarEstadoFavoriteado()
+                    }
+                    if (it.vista!!) {
+                        movie.cambiarEstadoVista()
+                    }
+                    movies.add(movie)
+                }
+
+                setupRecyclerView(findViewById(R.id.item_list), movies)
+            }
+        })
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {

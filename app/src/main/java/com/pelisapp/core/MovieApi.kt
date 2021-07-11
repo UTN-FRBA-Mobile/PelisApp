@@ -16,6 +16,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.IOException
 import com.google.firebase.ktx.Firebase
+import java.lang.RuntimeException
 
 
 class MovieApi {
@@ -64,13 +65,31 @@ class MovieApi {
         }
     }
 
+    fun getMovieByIMDBId(imdbId: String): Movie {
+        allowNetworkPermission()
+
+        val request = Request.Builder()
+                .url(urlForQuery() + imdbIdQueryParam(imdbId))
+                .build()
+
+        var result = client.newCall(request).execute().use { response ->
+            if (!response.isSuccessful) throw IOException("Unexpected code $response")
+
+            val json = response.body!!.string()
+            println("json response: $json")
+            if (json.contains("Incorrect IMDb ID.", true) || json.contains("\"Response\": \"False\"", true))
+                throw RuntimeException("No existe la pelicula con el id $imdbId")
+            return mapper.readValue(json, Movie::class.java)
+        }
+    }
+
     fun getAllMoviesFromFirebase(listener: MoviesListener){
         val database = Firebase.database
-        val myRef = database.getReference("movies")
+        val myRef = database.getReference("movies-users")
 
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                var movies = dataSnapshot.getValue<List<Movie>>()
+                var movies = dataSnapshot.getValue<List<UserMovie>>()
                 listener.onMoviesReceived(movies)
             }
 
@@ -86,6 +105,10 @@ class MovieApi {
 
     private fun titleQueryParam(title: String): String {
         return "&t=$title"
+    }
+
+    private fun imdbIdQueryParam(imdbId: String): String {
+        return "&i=$imdbId"
     }
 
     private fun allowNetworkPermission() {
