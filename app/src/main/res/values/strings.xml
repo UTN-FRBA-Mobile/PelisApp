@@ -11,11 +11,6 @@
         <item>Acción</item>
         <item>Drama</item>
     </string-array>
-    <string-array name="directors">
-        <item>James Cameron</item>
-        <item>Christopher Nolan</item>
-        <item>Anthony Russo</item>
-    </string-array>
     <string-array name="home_variables">
         <item>Mis Pelis</item>
         <item>Amigos</item>
