@@ -23,9 +23,8 @@ class UserGroupDetailActivity : AppCompatActivity(), View.OnClickListener {
 
         val groupId = intent.getStringExtra("groupId")
         UserGroupApi().getAllGroupsFromFirebase(object: UserGroupsListener {
-            override fun onUserGroupsReceived(userGroups: List<UserGroup>?) {
-
-                var group = userGroups!!.first { group -> group.name == groupId }
+            override fun onUserGroupsReceived(userGroups: HashMap<String, UserGroup>?) {
+                var group = userGroups!!.filterValues { it.name == groupId }.values.first()
 
                 LoggedUserRepository.setGroupName(group.name!!)
 

@@ -39,9 +39,9 @@ class UserGroupsFragment : Fragment() {
         val loggedUser = LoggedUserRepository.getUser()
 
         UserGroupApi().getAllGroupsFromFirebase(object: UserGroupsListener {
-            override fun onUserGroupsReceived(userGroups: List<UserGroup>?) {
+            override fun onUserGroupsReceived(userGroups: HashMap<String, UserGroup>?) {
 
-                var groupsByUser = userGroups!!.filter { group -> group.users!!.contains(loggedUser) }
+                var groupsByUser = userGroups!!.filterValues { it.users!!.contains(loggedUser) }.values.toList()
 
                 val viewAdapter = SimpleUserGroupItemRecyclerViewAdapter(groupsByUser)
 

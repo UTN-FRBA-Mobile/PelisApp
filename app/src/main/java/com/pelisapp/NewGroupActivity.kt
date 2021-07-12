@@ -61,7 +61,8 @@ class NewGroupActivity : AppCompatActivity() {
         //var groupName: String? = binding.newGroupName.text.toString()
 
         binding.newGroupButton.setOnClickListener {
-            val userGroup = UserGroup("El grupeteeee", "laImagen", userList)
+            val image = "https://virtualscreenings.com/wp-content/plugins/profilegrid-user-profiles-groups-and-communities/public/partials/images/default-group.png"
+            val userGroup = UserGroup("pelisapp", image, userList)
             UserGroupApi().saveUserGroup(userGroup)
             val text = "Grupo guardado!"
             val duration = Toast.LENGTH_SHORT

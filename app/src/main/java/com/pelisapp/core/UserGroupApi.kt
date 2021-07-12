@@ -16,7 +16,7 @@ class UserGroupApi {
 
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                var groups = dataSnapshot.getValue<List<UserGroup>>()
+                var groups = dataSnapshot.getValue<HashMap<String, UserGroup>>()
                 listener.onUserGroupsReceived(groups)
             }
 
@@ -27,7 +27,7 @@ class UserGroupApi {
     }
 
     fun saveUserGroup(userGroup: UserGroup) {
-        //myRef.child(userGroup.name!!).setValue(userGroup) TODO esto ya ta andando, pero lo dejo comentado para no llenar la base con basura
+        myRef.child(userGroup.name!!).setValue(userGroup) //TODO esto ya ta andando, pero lo dejo comentado para no llenar la base con basura
         println("Voy a guardar: ${userGroup.name} y con usuarios: ${userGroup.users}")
     }
 

@@ -13,10 +13,10 @@ class MoviesResultsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_movies_results)
 
         UserGroupApi().getAllGroupsFromFirebase(object: UserGroupsListener{
-            override fun onUserGroupsReceived(userGroups: List<UserGroup>?) {
+            override fun onUserGroupsReceived(userGroups: HashMap<String, UserGroup>?) {
                 val userGroupName = LoggedUserRepository.getGroupName()
 
-                val userGroup = userGroups!!.find { group -> group.name == userGroupName }
+                val userGroup = userGroups!!.filterValues { it.name == userGroupName }.values.first()
 
                 val userNames = userGroup!!.users!!.map { user -> user.name }
 

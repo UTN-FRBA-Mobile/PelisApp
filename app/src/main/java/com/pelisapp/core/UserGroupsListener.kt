@@ -1,5 +1,5 @@
 package com.pelisapp.core
 
 interface UserGroupsListener{
-    fun onUserGroupsReceived(userGroups: List<UserGroup>?)
+    fun onUserGroupsReceived(userGroups: HashMap<String, UserGroup>?)
 }
