@@ -20,8 +20,8 @@ class PelisAppFirebaseMessagingService : FirebaseMessagingService() {
         mainExecutor.execute(Runnable {
             Toast.makeText(applicationContext, remoteMessage.notification?.body + ".\nCompletá tus filtros para continuar!",Toast.LENGTH_LONG).show()
         })
-        
-        LoggedUserRepository.setGroupName(remoteMessage.data["test"]!!);
+
+        LoggedUserRepository.setGroupName(remoteMessage.data["groupName"]!!);
 
         val intent = Intent(this, MoviesFilterActivity::class.java).apply {}
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
