@@ -2,9 +2,13 @@ package com.pelisapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.speech.RecognizerIntent
+import android.speech.SpeechRecognizer
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.google.firebase.auth.FirebaseAuth
@@ -16,6 +20,7 @@ import com.pelisapp.ui.dashboard.HomeFragment
 import com.pelisapp.ui.friends.FriendsFragment
 import com.pelisapp.ui.groups.UserGroupsFragment
 import com.pelisapp.ui.login.LoginFragment
+import java.util.*
 
 class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionListener,
     UserGroupsFragment.UserGroupsInteractionListener {
@@ -27,6 +32,8 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionLis
     lateinit var binding: ActivityMainBinding
 
     private lateinit var auth: FirebaseAuth
+
+    private val RQ_SPEECH_REC = 102
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +54,7 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionLis
     }
 
     override fun onLogin(username: String, password: String) {
-        var userWithEmail = username.plus("@mail.com")
+        val userWithEmail = username.plus("@mail.com")
 
         auth.signInWithEmailAndPassword(userWithEmail, password)
             .addOnCompleteListener(this) { task ->
@@ -69,6 +76,11 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionLis
 
     override fun onSignUp() {
         TODO("Not yet implemented")
+    }
+
+    // TODO: Solo para fines de desarrollo
+    override fun onDirectLogin() {
+        this.onLogin("npatronelli", "npatronelli123")
     }
 
     override fun onBackPressed() {
@@ -103,9 +115,43 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionLis
             .commit()
     }
 
+    fun setListOfMoviesView(movieToFind: String) {
+        //print("La película a buscar es $movieToFind")
+        //val intent = Intent(this, NicoItemListActivity::class.java)
+        //intent.putExtra("movieToFind", movieToFind)
+        //startActivity(intent)
+    }
+
+    fun askSpeechInput() {
+        if (!SpeechRecognizer.isRecognitionAvailable(this))
+            Toast.makeText(this, "Speech recognition is not available", Toast.LENGTH_SHORT).show()
+        else {
+            val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.US)
+//            intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Say something!")
+            startActivityForResult(intent, RQ_SPEECH_REC)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+//        if (requestCode == RQ_SPEECH_REC && resultCode == Activity.RESULT_OK) {
+        if (requestCode == RQ_SPEECH_REC && data != null) {
+            val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+            val recognizedText = result?.get(0).toString()
+            val searchView = findViewById<SearchView>(R.id.movies_finder_search_view)
+            searchView.setQuery(recognizedText, false)
+            searchView.clearFocus()
+        }
+//        Para fines de testings
+        val searchView = findViewById<SearchView>(R.id.movies_finder_search_view)
+        searchView.setQuery("pokemon", false)
+        searchView.clearFocus()
+    }
+
     override fun setNewGroup() {
         val intent = Intent(this, NewGroupActivity::class.java)
         startActivity(intent)
     }
-
 }

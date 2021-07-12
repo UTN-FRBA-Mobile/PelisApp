@@ -1,122 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="10dp"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/misPelisButton"
-        android:layout_width="wrap_content"
+    <!--    <com.google.android.material.appbar.AppBarLayout-->
+    <!--        android:id="@+id/app_bar"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:theme="@style/Theme.PelisApp.AppBarOverlay">-->
+    <!--    </com.google.android.material.appbar.AppBarLayout>-->
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/movies_finder_search_view"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="43dp"
-        android:text="Mis Pelis"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/amigosButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Amigos"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
-
-    <Button
-        android:id="@+id/gruposButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="28dp"
-        android:layout_marginBottom="43dp"
-        android:text="Grupos"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="68dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView4"
-        app:srcCompat="@drawable/friends" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="7dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginEnd="7dp"
-        android:layout_marginBottom="3dp"
-        app:layout_constraintBottom_toTopOf="@+id/gruposButton"
-        app:layout_constraintEnd_toEndOf="@+id/gruposButton"
-        app:layout_constraintStart_toStartOf="@+id/gruposButton"
-        app:layout_constraintTop_toTopOf="@+id/imageView2"
-        app:srcCompat="@drawable/groups" />
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="0dp"
-        android:layout_height="81dp"
-        android:layout_marginStart="14dp"
-        android:layout_marginEnd="14dp"
-        android:layout_marginBottom="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/misPelisButton"
-        app:layout_constraintEnd_toEndOf="@+id/misPelisButton"
-        app:layout_constraintStart_toStartOf="@+id/misPelisButton"
-        app:srcCompat="@drawable/movies1" />
-
-    <Button
-        android:id="@+id/nuevoGrupoButton"
-        android:layout_width="251dp"
-        android:layout_height="69dp"
-        android:layout_marginTop="183dp"
-        android:layout_marginBottom="184dp"
-        android:text="Nuevo Grupo +"
-        app:layout_constraintBottom_toTopOf="@+id/imageView4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+        app:defaultQueryHint="@string/hint_busqueda"
+        app:iconifiedByDefault="false"></androidx.appcompat.widget.SearchView>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
-        android:layout_width="0dp"
+        android:layout_width="411dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="97dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        tools:layout_editor_absoluteY="97dp">
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/textInputEditText2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:hint="Ingrese el nombre de la película a buscar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
-
     <ImageView
-        android:id="@+id/imageView9"
-        android:layout_width="29dp"
-        android:layout_height="68dp"
-        android:layout_marginTop="119dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginBottom="115dp"
-        app:layout_constraintBottom_toTopOf="@+id/nuevoGrupoButton"
-        app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/lupa2" />
+        android:id="@+id/micButton"
+        android:layout_width="82dp"
+        android:layout_height="139dp"
+        android:contentDescription="Mic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/mic"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="158dp"
+        android:layout_gravity="center"
+        />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/new_group_button"
+        android:layout_width="251dp"
+        android:layout_height="69dp"
+        android:text="Nuevo Grupo +"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="376dp"
+        android:layout_gravity="center"/>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="68dp"
+            android:layout_height="73dp"
+            app:srcCompat="@drawable/friends"
+            tools:layout_editor_absoluteX="172dp"
+            tools:layout_editor_absoluteY="559dp"
+            android:contentDescription="TODO" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="80dp"
+            android:layout_height="75dp"
+            app:srcCompat="@drawable/groups"
+            tools:layout_editor_absoluteX="296dp"
+            tools:layout_editor_absoluteY="562dp"
+            android:contentDescription="TODO" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="79dp"
+            android:layout_height="81dp"
+            app:srcCompat="@drawable/movies1"
+            tools:layout_editor_absoluteX="30dp"
+            tools:layout_editor_absoluteY="555dp"
+            android:contentDescription="TODO" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+        <Button
+            android:id="@+id/my_movies_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mis Pelis"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="640dp"
+            android:layout_gravity="left"/>
+
+        <Button
+            app:layout_constraintBottom_toBottomOf="@+id/my_movies_button"
+            android:id="@+id/my_friends_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Amigos"
+            tools:layout_editor_absoluteX="160dp"
+            android:layout_gravity="center"
+            />
+
+        <Button
+            android:id="@+id/groups_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Grupos"
+            app:layout_constraintBottom_toBottomOf="@+id/my_friends_button"
+            tools:layout_editor_absoluteX="290dp"
+            android:layout_gravity="right"
+            />
+
+    </LinearLayout>
+
+    <!--    <Button-->
+    <!--        android:id="@+id/voice_btn"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:backgroundTint="@android:color/holo_red_light"-->
+    <!--        android:text="Speech to text"-->
+    <!--        android:textColor="@android:color/white"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.488"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        tools:ignore="MissingConstraints"-->
+    <!--        tools:layout_editor_absoluteY="185dp" />-->
+
+</LinearLayout>
