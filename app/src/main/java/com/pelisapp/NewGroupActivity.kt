@@ -44,7 +44,7 @@ class NewGroupActivity : AppCompatActivity() {
         UsersApi().getAllUsersFromFirebase(object: UsersListener {
             override fun onUsersReceived(users: List<User>?) {
                 userList = users!!
-                usersAdapter = UsersAdapter(users!!)
+                usersAdapter = UsersAdapter(users!!.map { user -> UserWithCheck(user.name!!, user.avatarUrl!!, false) })
 
                 usersRecyclerView = binding.myRecyclerView.apply {
                     layoutManager = LinearLayoutManager(this.context)
@@ -57,9 +57,9 @@ class NewGroupActivity : AppCompatActivity() {
 
         binding.newGroupButton.setOnClickListener {
             val image = "https://virtualscreenings.com/wp-content/plugins/profilegrid-user-profiles-groups-and-communities/public/partials/images/default-group.png"
-            val userGroup = UserGroup(getNewGroupName(), image, userList)
+            val userGroup = UserGroup(getNewGroupName(), image, usersAdapter.usersCheckeds())
             UserGroupApi().saveUserGroup(userGroup)
-            val text = "Grupo guardado!"
+            val text = "Grupo creado!"
             val duration = Toast.LENGTH_SHORT
 
             val toast = Toast.makeText(applicationContext, text, duration)
