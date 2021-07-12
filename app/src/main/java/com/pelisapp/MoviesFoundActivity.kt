@@ -11,7 +11,6 @@ import okhttp3.*
 import java.io.IOException
 
 class MoviesFoundActivity : SearchView.OnQueryTextListener, AppCompatActivity() {
-
     private lateinit var adapter: SimpleItemRecyclerViewAdapter
     private lateinit var busqueda: SearchView
 

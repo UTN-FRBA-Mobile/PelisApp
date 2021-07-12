@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.pelisapp.R
 import com.pelisapp.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {
@@ -26,30 +24,19 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.loginButton.setOnClickListener {
             val username = binding.username.text.toString()
             val password = binding.password.text.toString()
-
             listener!!.onLogin(username, password)
         }
-
-        binding.signUpButton.setOnClickListener {
-            listener!!.onSignUp()
-        }
-
-        binding.directAccess.setOnClickListener {
-            listener!!.onDirectLogin()
-        }
+        binding.signUpButton.setOnClickListener { listener!!.onSignUp() }
+        binding.directAccess.setOnClickListener { listener!!.onDirectLogin() }
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException("$context must implement OnFragmentInteractionListener")
-        }
+        if (context is OnFragmentInteractionListener) listener = context
+        else throw RuntimeException("$context must implement OnFragmentInteractionListener")
     }
 
     override fun onDetach() {
