@@ -63,6 +63,8 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionLis
 
                     val intentExtras = intent.extras;
                     if (intentExtras != null) {
+                        val groupName = intent.getStringExtra("groupName")!!;
+                        LoggedUserRepository.setGroupName(groupName)
                         val intent = Intent(this, MoviesFilterActivity::class.java).apply {}
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent)
