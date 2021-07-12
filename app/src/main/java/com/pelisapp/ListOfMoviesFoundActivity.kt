@@ -49,7 +49,7 @@ class ListOfMoviesFoundActivity : AppCompatActivity() {
     private fun setupRecyclerView(recyclerView: RecyclerView, bodyResponse: String?) {
         val moviesList = moviesList(bodyResponse)
 //
-        val fullMoviesList = moviesList.map {
+        val fullMoviesList = moviesList.take(8).map {
             MovieApi().getMovieByIMDBId(it.imdbID)
         }
 //

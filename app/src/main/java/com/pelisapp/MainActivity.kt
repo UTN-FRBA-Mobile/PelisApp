@@ -130,11 +130,15 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionLis
             print("Texto reconocido $recognizedText")
             searchView.setQuery(recognizedText, false)
             searchView.clearFocus()
+            setListOfMoviesFoundView(recognizedText)
         }
 //        Para fines de testings
-//        val searchView = findViewById<SearchView>(R.id.movies_finder_search_view)
-//        searchView.setQuery("pokemon", false)
-//        searchView.clearFocus()
+        val result = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+        val recognizedText = result?.get(0).toString()
+        val searchView = findViewById<SearchView>(R.id.movies_finder_search_view)
+        searchView.setQuery("pokemon", false)
+        searchView.clearFocus()
+        setListOfMoviesFoundView("pokemon")
     }
 
     override fun setNewGroup() {
