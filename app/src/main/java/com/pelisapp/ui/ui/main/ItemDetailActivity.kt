@@ -6,8 +6,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.pelisapp.ItemListActivity
 import com.pelisapp.R
+import com.pelisapp.core.Movie
+import com.pelisapp.core.MovieApi
+import com.pelisapp.core.UserMovie
 
 /**
  * An activity representing a single Item detail screen. This
@@ -16,6 +21,8 @@ import com.pelisapp.R
  * in a [ItemListActivity].
  */
 class ItemDetailActivity : AppCompatActivity() {
+
+    val mapper = ObjectMapper().registerModule(KotlinModule())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +62,12 @@ class ItemDetailActivity : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        var movie = mapper.readValue(intent.getStringExtra(ItemDetailFragment.ARG_MOVIE), Movie::class.java)
+        MovieApi().updateMovieOnFirebase(UserMovie(movie.imdbID, movie.favorita, movie.vista))
+    }
+
     override fun onOptionsItemSelected(item: MenuItem) =
             when (item.itemId) {
                 android.R.id.home -> {
@@ -64,6 +77,8 @@ class ItemDetailActivity : AppCompatActivity() {
                     //
                     // http://developer.android.com/design/patterns/navigation.html#up-vs-back
 
+                    var movie = mapper.readValue(intent.getStringExtra(ItemDetailFragment.ARG_MOVIE), Movie::class.java)
+                    MovieApi().updateMovieOnFirebase(UserMovie(movie.imdbID, movie.favorita, movie.vista))
                     navigateUpTo(Intent(this, ItemListActivity::class.java))
                     true
                 }

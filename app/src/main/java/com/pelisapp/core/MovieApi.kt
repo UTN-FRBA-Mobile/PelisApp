@@ -1,7 +1,7 @@
 package com.pelisapp.core
 
 import android.os.StrictMode
-import com.fasterxml.jackson.annotation.JacksonAnnotation
+import android.util.Log
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.MapperFeature
@@ -17,6 +17,7 @@ import okhttp3.Request
 import java.io.IOException
 import com.google.firebase.ktx.Firebase
 import java.lang.RuntimeException
+import java.util.*
 
 
 class MovieApi {
@@ -89,7 +90,7 @@ class MovieApi {
 
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                var movies = dataSnapshot.getValue<List<UserMovie>>()
+                var movies = dataSnapshot.getValue<HashMap<String, UserMovie>>()!!.values.toList()
                 listener.onMoviesReceived(movies)
             }
 
@@ -115,6 +116,15 @@ class MovieApi {
         val policy = StrictMode.ThreadPolicy.Builder()
             .permitAll().build()
         StrictMode.setThreadPolicy(policy)
+    }
+
+    fun updateMovieOnFirebase(userMovie: UserMovie) {
+        val database = Firebase.database
+        val myRef = database.getReference("movies-users")
+
+        myRef.child("${userMovie.imdbID}").child("favoriteada").setValue(userMovie.favoriteada)
+        myRef.child("${userMovie.imdbID}").child("vista").setValue(userMovie.vista)
+        Log.i("MovieApi", "Update en la base")
     }
 }
 

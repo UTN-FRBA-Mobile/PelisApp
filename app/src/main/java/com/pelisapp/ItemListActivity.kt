@@ -11,6 +11,7 @@ import com.pelisapp.core.*
 import java.util.logging.Level.INFO
 
 class ItemListActivity : SearchView.OnQueryTextListener, SearchView.OnCloseListener, AppCompatActivity() {
+    private var currentMovies: MutableList<Movie> = mutableListOf()
     private lateinit var adapter: SimpleItemRecyclerViewAdapter
     private val movieApi = MovieApi()
     private lateinit var busqueda: SearchView
@@ -66,7 +67,7 @@ class ItemListActivity : SearchView.OnQueryTextListener, SearchView.OnCloseListe
 
                 var movies = mutableListOf<Movie>()
                 savedMovies.forEach {
-                    var movie = MovieApi().getMovieByIMDBId(it.imdbID!!) // FIXME pasarle a la Movie si esta fav o no y si esta vista o no antes de pasarsela al recycler
+                    var movie = MovieApi().getMovieByIMDBId(it.imdbID!!)
                     if (it.favoriteada!!) {
                         movie.cambiarEstadoFavoriteado()
                     }
@@ -76,9 +77,18 @@ class ItemListActivity : SearchView.OnQueryTextListener, SearchView.OnCloseListe
                     movies.add(movie)
                 }
 
+                currentMovies.addAll(movies)
+
                 setupRecyclerView(findViewById(R.id.item_list), movies)
             }
         })
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        currentMovies.forEach {
+            MovieApi().updateMovieOnFirebase(UserMovie(it.imdbID, it.favorita, it.vista))
+        }
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
