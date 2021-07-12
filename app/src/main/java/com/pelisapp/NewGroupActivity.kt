@@ -55,14 +55,9 @@ class NewGroupActivity : AppCompatActivity() {
             }
         })
 
-        //TODO hacer que agarre a los usuarios seleccionados, y permitir poner nombre del grupo
-//        val user = User("Javeee", "jave.img")
-//        val users: List<User> = listOf(user)
-        //var groupName: String? = binding.newGroupName.text.toString()
-
         binding.newGroupButton.setOnClickListener {
             val image = "https://virtualscreenings.com/wp-content/plugins/profilegrid-user-profiles-groups-and-communities/public/partials/images/default-group.png"
-            val userGroup = UserGroup("pelisapp", image, userList)
+            val userGroup = UserGroup(getNewGroupName(), image, userList)
             UserGroupApi().saveUserGroup(userGroup)
             val text = "Grupo guardado!"
             val duration = Toast.LENGTH_SHORT
@@ -70,6 +65,10 @@ class NewGroupActivity : AppCompatActivity() {
             val toast = Toast.makeText(applicationContext, text, duration)
             toast.show()
         }
+    }
+
+    fun getNewGroupName(): String {
+        return binding.newGroupName.text.toString()
     }
 
 }
