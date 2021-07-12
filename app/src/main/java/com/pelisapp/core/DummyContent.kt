@@ -148,6 +148,6 @@ object DummyContent {
 
     private fun addItem(item: Movie) {
         ITEMS.add(item)
-        ITEM_MAP.put(item.imdbID, item)
+        ITEM_MAP.put(item.imdbID.orEmpty(), item)
     }
 }
