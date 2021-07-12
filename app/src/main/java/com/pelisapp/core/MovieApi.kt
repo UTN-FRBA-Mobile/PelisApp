@@ -140,6 +140,7 @@ class MovieApi {
 
         myRef.child("${userMovie.imdbID}").child("favoriteada").setValue(userMovie.favoriteada)
         myRef.child("${userMovie.imdbID}").child("vista").setValue(userMovie.vista)
+        myRef.child("${userMovie.imdbID}").child("imdbID").setValue(userMovie.imdbID)
         Log.i("MovieApi", "Update en la base")
     }
 }

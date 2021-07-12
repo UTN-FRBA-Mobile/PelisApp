@@ -65,7 +65,7 @@ class ItemDetailActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         var movie = mapper.readValue(intent.getStringExtra(ItemDetailFragment.ARG_MOVIE), Movie::class.java)
-        MovieApi().updateMovieOnFirebase(UserMovie(movie.imdbID, movie.favorita, movie.vista))
+        //MovieApi().updateMovieOnFirebase(UserMovie(movie.imdbID, true, movie.vista))
     }
 
     override fun onOptionsItemSelected(item: MenuItem) =
@@ -76,9 +76,8 @@ class ItemDetailActivity : AppCompatActivity() {
                     // more details, see the Navigation pattern on Android Design:
                     //
                     // http://developer.android.com/design/patterns/navigation.html#up-vs-back
-
                     var movie = mapper.readValue(intent.getStringExtra(ItemDetailFragment.ARG_MOVIE), Movie::class.java)
-                    MovieApi().updateMovieOnFirebase(UserMovie(movie.imdbID, movie.favorita, movie.vista))
+                    MovieApi().updateMovieOnFirebase(UserMovie(movie.imdbID, true, movie.vista))
                     navigateUpTo(Intent(this, ItemListActivity::class.java))
                     true
                 }
