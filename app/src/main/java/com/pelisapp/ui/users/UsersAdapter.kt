@@ -6,13 +6,15 @@ import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.pelisapp.core.User
+import com.pelisapp.core.UserWithCheck
 import com.pelisapp.databinding.ViewListitemUserBinding
 import com.squareup.picasso.Picasso
 
-class UsersAdapter(private val users: List<User>) :
+
+class UsersAdapter(private val users: List<UserWithCheck>) :
     RecyclerView.Adapter<UsersAdapter.MyViewHolder>(), Filterable {
 
-    var userFilterList: List<User> = ArrayList()
+    var userFilterList: List<UserWithCheck> = ArrayList()
 
     init {
         userFilterList = users
@@ -39,13 +41,17 @@ class UsersAdapter(private val users: List<User>) :
         inflateView(user)
     }
 
-    private fun inflateView(user: User) {
+    private fun inflateView(user: UserWithCheck) {
         println("inflateView: $user")
         binding.apply {
             username.text = user.name
             Picasso.get()
                 .load(user.avatarUrl)
                 .into(userProfile)
+            checkbox.setOnCheckedChangeListener(null)
+            checkbox.setOnCheckedChangeListener { buttonView, isChecked ->
+                user.check = isChecked
+            }
         }
 
     }
@@ -72,11 +78,15 @@ class UsersAdapter(private val users: List<User>) :
 
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
                 println("results?.values : ${results?.values}")
-                userFilterList = results?.values as List<User>
+                userFilterList = results?.values as List<UserWithCheck>
                 notifyDataSetChanged()
             }
 
         }
+    }
+
+    fun usersCheckeds(): List<User> {
+        return userFilterList.filter { userWithCheck -> userWithCheck.check }.map{ userWithCheck -> User(userWithCheck.name, userWithCheck.avatarUrl)  }
     }
 
 }

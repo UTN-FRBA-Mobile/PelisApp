@@ -5,4 +5,8 @@ class User(val name: String? = null, val avatarUrl: String? = null) {
         other as User
         return this.name.equals(other.name)
     }
+
+    override fun toString(): String {
+        return "User(name=$name, avatarUrl=$avatarUrl)"
+    }
 }
