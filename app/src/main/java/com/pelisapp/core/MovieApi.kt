@@ -100,6 +100,22 @@ class MovieApi {
         })
     }
 
+    fun getAllMoviesFromFirebaseDB(listener: FirebaseMoviesListener){
+        val database = Firebase.database
+        val myRef = database.getReference("movies")
+
+        myRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                var movies = dataSnapshot.getValue<List<FirebaseMovie>>()
+                listener.onFirebaseMoviesReceived(movies)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                println("Failed to read value from Firebase Realtime Database")
+            }
+        })
+    }
+
     private fun urlForQuery(): String {
         return baseUrl + "/?apikey=$apikey"
     }

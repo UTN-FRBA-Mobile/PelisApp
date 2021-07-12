@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.pelisapp.core.*
 import com.pelisapp.databinding.FragmentMoviesResultsBinding
+import com.pelisapp.ui.dashboard.FirebaseMoviesAdapter
 import com.pelisapp.ui.dashboard.MoviesAdapter
 
 class MoviesResultsFragment : Fragment() {
@@ -29,30 +30,30 @@ class MoviesResultsFragment : Fragment() {
 
         val viewManager = LinearLayoutManager(this.context)
 
-//        MovieApi().getAllMoviesFromFirebase(object: MoviesListener {
-//            override fun onMoviesReceived(movies: List<Movie>?) {
-//                PreferencesApi().getAllPreferencesFromFirebase(object: PreferencesListener {
-//                    override fun onPreferencesReceived(preferences: HashMap<String, Preference>?) {
-//
-//                        var directors = preferences!!.values.toList().map { pref -> pref.director }
-//                        var genres = preferences!!.values.toList().map { pref -> pref.genre }
-//
-//                        var chosenDirector = getMostRepeatedWord(directors)
-//                        var chosenGenre = getMostRepeatedWord(genres)
-//
-//                        var chosenMovies = movies!!.filter { movie -> movie.director.equals(chosenDirector) && movie.genre.equals(chosenGenre) }
-//
-//                        val viewAdapter = MoviesAdapter(chosenMovies)
-//
-//                        recyclerView = binding.resultsRecyclerView
-//                        recyclerView.apply{
-//                            layoutManager = viewManager
-//                            adapter = viewAdapter
-//                        }
-//                    }
-//                })
-//            }
-//        })
+        MovieApi().getAllMoviesFromFirebaseDB(object: FirebaseMoviesListener {
+            override fun onFirebaseMoviesReceived(movies: List<FirebaseMovie>?) {
+                PreferencesApi().getAllPreferencesFromFirebase(object: PreferencesListener {
+                    override fun onPreferencesReceived(preferences: HashMap<String, Preference>?) {
+
+                        var directors = preferences!!.values.toList().map { pref -> pref.director }
+                        var genres = preferences!!.values.toList().map { pref -> pref.genre }
+
+                        var chosenDirector = getMostRepeatedWord(directors)
+                        var chosenGenre = getMostRepeatedWord(genres)
+
+                        var chosenMovies = movies!!.filter { movie -> movie.director.equals(chosenDirector) && movie.genre.equals(chosenGenre) }
+
+                        val viewAdapter = FirebaseMoviesAdapter(chosenMovies)
+
+                        recyclerView = binding.resultsRecyclerView
+                        recyclerView.apply{
+                            layoutManager = viewManager
+                            adapter = viewAdapter
+                        }
+                    }
+                })
+           }
+        })
     }
 
     fun getMostRepeatedWord(words: List<String?>): String? {
