@@ -35,7 +35,7 @@ class HomeFragment : Fragment(), View.OnClickListener  {
             R.id.my_movies_button -> mainActivity.setMoviesView()
             R.id.my_friends_button -> mainActivity.setFriendsView()
             R.id.groups_button -> mainActivity.setGroupsView()
-            R.id.new_group_button -> { } //TODO: flujo nuevo grupo
+            R.id.new_group_button -> mainActivity.setNewGroup()
             R.id.movies_finder_search_view -> {
                 val movieToFind = binding.moviesFinderSearchView.query.toString()
                 mainActivity.setListOfMoviesView(movieToFind)
