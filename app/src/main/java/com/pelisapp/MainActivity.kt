@@ -1,5 +1,6 @@
 package com.pelisapp
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.speech.RecognizerIntent
@@ -122,18 +123,18 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionLis
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-//        if (requestCode == RQ_SPEECH_REC && resultCode == Activity.RESULT_OK) {
-        if (requestCode == RQ_SPEECH_REC && data != null) {
-            val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+        if (requestCode == RQ_SPEECH_REC && resultCode == Activity.RESULT_OK) {
+            val result = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
             val recognizedText = result?.get(0).toString()
             val searchView = findViewById<SearchView>(R.id.movies_finder_search_view)
+            print("Texto reconocido $recognizedText")
             searchView.setQuery(recognizedText, false)
             searchView.clearFocus()
         }
 //        Para fines de testings
-        val searchView = findViewById<SearchView>(R.id.movies_finder_search_view)
-        searchView.setQuery("pokemon", false)
-        searchView.clearFocus()
+//        val searchView = findViewById<SearchView>(R.id.movies_finder_search_view)
+//        searchView.setQuery("pokemon", false)
+//        searchView.clearFocus()
     }
 
     override fun setNewGroup() {
