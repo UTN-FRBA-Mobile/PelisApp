@@ -61,11 +61,18 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionLis
                 if (task.isSuccessful) {
                     LoggedUserRepository.setUserName(username)
 
-                    homeFragment = HomeFragment()
+                    val intentExtras = intent.extras;
+                    if (intentExtras != null) {
+                        val intent = Intent(this, MoviesFilterActivity::class.java).apply {}
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent)
+                    } else {
+                        homeFragment = HomeFragment()
 
-                    supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                        supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
 
-                    supportFragmentManager.beginTransaction().remove(loginFragment).add(R.id.container, homeFragment).commitNow()
+                        supportFragmentManager.beginTransaction().remove(loginFragment).add(R.id.container, homeFragment).commitNow()
+                    }
                 } else {
                     val incorrectUserPasswordTextView = findViewById<TextView>(R.id.incorrect_user_password)
 
