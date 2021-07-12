@@ -87,7 +87,7 @@ class ItemListActivity : SearchView.OnQueryTextListener, SearchView.OnCloseListe
     override fun onBackPressed() {
         super.onBackPressed()
         currentMovies.forEach {
-            MovieApi().updateMovieOnFirebase(UserMovie(it.imdbID, it.favorita, it.vista))
+            MovieApi().updateMovieOnFirebase(UserMovie(it.imdbID, true, it.vista))
         }
     }
 
