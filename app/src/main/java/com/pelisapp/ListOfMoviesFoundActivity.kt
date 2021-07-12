@@ -26,13 +26,6 @@ class ListOfMoviesFoundActivity : AppCompatActivity() {
         callToOmdb(movieToFind!!)
     }
 
-    private fun convertMovie(node: JsonNode): MovieFound {
-        val movieAsText = node.toString()
-        print(movieAsText)
-        val movie: MovieFound = mapper.readValue(movieAsText)
-        return movie
-    }
-
     private fun callToOmdb(movieToFind: String) {
         val url = "https://www.omdbapi.com/?s=$movieToFind&type=movie&apikey=$apiKey";
         val client = OkHttpClient()
@@ -61,5 +54,10 @@ class ListOfMoviesFoundActivity : AppCompatActivity() {
         val readTree = mapper.readTree(bodyResponse!!)
         val moviesList = readTree.get(jsonMainNodeKey)
         return moviesList.map { movie -> convertMovie(movie) }
+    }
+
+    private fun convertMovie(node: JsonNode): MovieFound {
+        val movieAsText = node.toString()
+        return mapper.readValue(movieAsText)
     }
 }

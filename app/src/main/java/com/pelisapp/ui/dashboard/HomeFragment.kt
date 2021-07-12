@@ -16,7 +16,6 @@ class HomeFragment : Fragment(), View.OnClickListener  {
     private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        println("onCreateView")
         _binding = ActivityHomeBinding.inflate(inflater, container, false)
 
         binding.myMoviesButton.setOnClickListener(this)
@@ -38,7 +37,7 @@ class HomeFragment : Fragment(), View.OnClickListener  {
             R.id.new_group_button -> { } //TODO: flujo nuevo grupo
             R.id.movies_finder_search_view -> {
                 val movieToFind = binding.moviesFinderSearchView.query.toString()
-                mainActivity.setListOfMoviesView(movieToFind)
+                mainActivity.setListOfMoviesFoundView(movieToFind)
             }
             R.id.micButton-> mainActivity.askSpeechInput()
         }
