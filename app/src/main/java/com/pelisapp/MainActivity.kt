@@ -133,12 +133,12 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionLis
             setListOfMoviesFoundView(recognizedText)
         }
 //        Para fines de testings
-        val result = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-        val recognizedText = result?.get(0).toString()
-        val searchView = findViewById<SearchView>(R.id.movies_finder_search_view)
-        searchView.setQuery("pokemon", false)
-        searchView.clearFocus()
-        setListOfMoviesFoundView("pokemon")
+//        val result = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+//        val recognizedText = result?.get(0).toString()
+//        val searchView = findViewById<SearchView>(R.id.movies_finder_search_view)
+//        searchView.setQuery("pokemon", false)
+//        searchView.clearFocus()
+//        setListOfMoviesFoundView("pokemon")
     }
 
     override fun setNewGroup() {
