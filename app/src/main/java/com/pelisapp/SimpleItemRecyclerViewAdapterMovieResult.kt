@@ -24,7 +24,7 @@ class SimpleItemRecyclerViewAdapterMovieResult(private val originalItems: List<M
         onClickListener = View.OnClickListener { v ->
             val item = v.tag as MovieFound
             val intent = Intent(v.context, ItemDetailActivity::class.java).apply {
-                putExtra(ItemDetailFragment.ARG_ITEM_ID, item.imdbID)
+                putExtra(ItemDetailFragment.ARG_MOVIE, item.imdbID)
             }
             v.context.startActivity(intent)
         }
