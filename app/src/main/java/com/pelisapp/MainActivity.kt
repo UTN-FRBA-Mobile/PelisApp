@@ -22,7 +22,8 @@ import com.pelisapp.ui.groups.UserGroupsFragment
 import com.pelisapp.ui.login.LoginFragment
 import java.util.*
 
-class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionListener {
+class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionListener,
+    UserGroupsFragment.UserGroupsInteractionListener {
     private lateinit var loginFragment: Fragment
     private lateinit var homeFragment: Fragment
     private lateinit var groupsFragment: Fragment
@@ -115,10 +116,10 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionLis
     }
 
     fun setListOfMoviesView(movieToFind: String) {
-        print("La película a buscar es $movieToFind")
-        val intent = Intent(this, NicoItemListActivity::class.java)
-        intent.putExtra("movieToFind", movieToFind)
-        startActivity(intent)
+        //print("La película a buscar es $movieToFind")
+        //val intent = Intent(this, NicoItemListActivity::class.java)
+        //intent.putExtra("movieToFind", movieToFind)
+        //startActivity(intent)
     }
 
     fun askSpeechInput() {
@@ -149,4 +150,8 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnFragmentInteractionLis
         searchView.clearFocus()
     }
 
+    override fun setNewGroup() {
+        val intent = Intent(this, NewGroupActivity::class.java)
+        startActivity(intent)
+    }
 }

@@ -7,17 +7,16 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 
-class UserGroupApi {
+class DirectorsApi {
 
     private val database = Firebase.database
-    private val myRef = database.getReference("userGroups")
+    private val myRef = database.getReference("directors")
 
-    fun getAllGroupsFromFirebase(listener: UserGroupsListener){
-
-        myRef.addValueEventListener(object : ValueEventListener {
+    fun getAllDirectorsFromFirebase(listener: DirectorsListener){
+        myRef.addValueEventListener(object: ValueEventListener{
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                var groups = dataSnapshot.getValue<List<UserGroup>>()
-                listener.onUserGroupsReceived(groups)
+                var directors = dataSnapshot.getValue<List<Director>>()
+                listener.onDirectorsReceived(directors)
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -25,10 +24,4 @@ class UserGroupApi {
             }
         })
     }
-
-    fun saveUserGroup(userGroup: UserGroup) {
-        //myRef.child(userGroup.name!!).setValue(userGroup) TODO esto ya ta andando, pero lo dejo comentado para no llenar la base con basura
-        println("Voy a guardar: ${userGroup.name} y con usuarios: ${userGroup.users}")
-    }
-
 }
